@@ -1,0 +1,159 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: Settings and picons\n"
+"POT-Creation-Date: 2018-03-02 23:04+0100\n"
+"PO-Revision-Date: 2018-03-07 09:52+0100\n"
+"Last-Translator:  FULL NAME <FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."
+">\n"
+"Language-Team: GioppyGio\n"
+"Language: it_IT\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.0.1\n"
+"X-Poedit-Basepath: ../../..\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: Moduli/Select.py:135 picons.py:116 picons.py:168 plugin.py:104
+msgid "Exit"
+msgstr "Uscire"
+
+#: Moduli/Select.py:136 plugin.py:105
+msgid "Installed list:"
+msgstr "Elenco installato:"
+
+#: Moduli/Select.py:167 plugin.py:222
+msgid "Last Update: Never"
+msgstr "Ultimo aggiornamento: mai"
+
+#: Moduli/Select.py:169 plugin.py:224
+msgid "Last Update: "
+msgstr "Ultimo aggiornamento:"
+
+#: Moduli/Setting.py:559 Moduli/Setting.py:565
+msgid ""
+"Sorry! New release downloaded, restart enigma in order to make "
+"updating the setting."
+msgstr ""
+"Scusate!  Nuova versione scaricata, riavvio di enigma per "
+"aggiornare le impostazioni."
+
+#: Moduli/Setting.py:600 Moduli/Setting.py:604
+msgid " "
+msgstr ""
+
+#: Moduli/Setting.py:600
+msgid "from"
+msgstr "a partire dal"
+
+#: Moduli/Setting.py:600
+msgid "installed !"
+msgstr "installato !"
+
+#: Moduli/Setting.py:602
+msgid "Sorry, cannot download !"
+msgstr "Siamo spiacenti, non è possibile scaricare!"
+
+#: Moduli/Setting.py:608
+msgid "Sorry, no internet connection !"
+msgstr "Siamo spiacenti, nessuna connessione Internet!"
+
+#: picons.py:149
+msgid "Dowanloding"
+msgstr "Download"
+
+#: picons.py:150
+msgid ""
+"It is recommended !!\n"
+"to mount the appropriate device before downloading.\n"
+"Otherwise\n"
+"Press OK to continue"
+msgstr ""
+"È raccomandato !!\n"
+"Montare il dispositivo appropriato prima del download.\n"
+"Altrimenti,\n"
+"Premere OK per continuare"
+
+#: picons.py:195
+msgid ""
+"It is recommended !!\n"
+"to mount the appropriate device before downloading.\n"
+"Otherwise\n"
+"Press OK to install."
+msgstr ""
+"È raccomandato !!\n"
+"Montare il dispositivo appropriato prima del download.\n"
+"Altrimenti,\n"
+"Premere OK per installare."
+
+#: picons.py:197 picons.py:203
+#, python-format
+msgid "downloading-installing: %s"
+msgstr "scaricamento-installazione: %s"
+
+#: plugin.py:107
+msgid "Picons"
+msgstr "Picons"
+
+#: plugin.py:174
+msgid "Favourite: Yes"
+msgstr "Preferiti: Si"
+
+#: plugin.py:178 plugin.py:185
+msgid "Favourite: No"
+msgstr "Preferiti: No"
+
+#: plugin.py:195
+msgid "Auto Update: Yes"
+msgstr "Auto Update: Si"
+
+#: plugin.py:199
+msgid "Auto Update: No"
+msgstr "Auto Update: No"
+
+#: plugin.py:225
+msgid "Favourite:"
+msgstr "preferiti:"
+
+#: plugin.py:226
+msgid "Auto Update:"
+msgstr "Auto Update:"
+
+#: plugin.py:282
+msgid "Server down for maintenance"
+msgstr "Server inattivo per manutenzione"
+
+#: plugin.py:315 plugin.py:317
+#, python-format
+msgid ""
+"\n"
+"List: %s\n"
+"Date: %s\n"
+"Your selection is ready to install,\n"
+"want to continue ? \n"
+"This make take a few seconds, please wait ..."
+msgstr ""
+"\n"
+"List: %s\n"
+"Date: %s\n"
+"La tua selezione è pronta per l'installazione,\n"
+"vuoi continuare ? \n"
+"Questa operazione durerà alcuni secondi, per favore aspetta ..."
+
+#: plugin.py:319
+#, python-format
+msgid ""
+"\n"
+"List: %s\n"
+"Date: %s\n"
+"Your selection is already installed,\n"
+"want to continue ? \n"
+"This make take a few seconds, please wait ..."
+msgstr ""
+"\n"
+"List: %s\n"
+"Date: %s\n"
+"La tua selezione è pronta per l'installazione,\n"
+"vuoi continuare ? \n"
+"Questa operazione durerà alcuni secondi, per favore aspetta ..."
