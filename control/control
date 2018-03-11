@@ -1,0 +1,11 @@
+Package: enigma2-plugin-extensions-GioppyGio
+Version: 2.0
+Description: plugin gioppygio-settings-and-Picons
+Section: base
+OE: Enigma2 plugin
+License: open
+Priority: optional
+Maintainer: Opendroid-Team
+Architecture: all
+Source: https://droidsat.org/forum/
+Homepage: https://droidsat.org/forum/
