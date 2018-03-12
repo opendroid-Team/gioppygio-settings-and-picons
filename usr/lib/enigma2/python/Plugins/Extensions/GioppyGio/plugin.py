@@ -9,6 +9,7 @@ from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.MultiContent import MultiContentEntryText
 from enigma import *
+from Components.ScrollLabel import ScrollLabel
 from Tools.BoundFunction import boundFunction
 from Components.Language import language
 from os import environ, listdir, remove, rename, system, popen
@@ -395,9 +396,9 @@ class picons(Screen):
 
 	screenwidth = getDesktop(0).size().width()
 	if screenwidth and screenwidth == 1920:
-		skin = '\n\t\t\t<screen name="picons" position="center,center" size="960,605" >\n\t\t\t\t<widget name="text" itemHeight="50" font="Regular;28" position="10,10" size="940,580" scrollbarMode="showOnDemand" transparent="1" />\n\t\t\t\t<widget name="info" position="10,540" size="940,50" font="Rale;32" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t</screen>'
+		skin = '\n\t\t\t<screen name="picons" position="center,center" size="960,605" >\n\t\t\t\t<widget name="text" itemHeight="50" font="Regular;28" position="10,10" size="940,580" scrollbarMode="showOnDemand" transparent="1" />\n\t\t\t\t<widget name="info" position="10,540" size="940,50" font="Rale;32" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t<widget name="lab1" position="10,540" size="940,50" font="Rale;32" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t</screen>'
 	else:
-		skin = '\n\t\t\t<screen name="picons" position="center,center" size="560,405" >\n\t\t\t\t<widget name="text" position="10,10" size="540,280" scrollbarMode="showOnDemand" transparent="1" />\n\t\t\t\t<widget name="info" position="10,370" size="540,30" font="Rale;22" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t</screen>'
+		skin = '\n\t\t\t<screen name="picons" position="center,center" size="560,405" >\n\t\t\t\t<widget name="text" position="10,10" size="540,280" scrollbarMode="showOnDemand" transparent="1" />\n\t\t\t\t<widget name="info" position="10,370" size="540,30" font="Rale;22" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t<widget name="lab1" position="10,370" size="540,30" font="Rale;22" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t</screen>'
 
 
 	def __init__(self, session):
@@ -405,6 +406,7 @@ class picons(Screen):
 		self.list = []
 		self['text'] = MenuList([])
 		self["info"] = Label()
+		self['lab1'] = Label(_("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to continue"))
 		self.addon = "Picons"
 		self.icount = 0
 		self.downloading=False
@@ -444,7 +446,7 @@ class picons(Screen):
 				self["info"].setText("")
 				self["text"].setList(self.names)
 				self.mount=True
-				self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to continue")
+#				self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to continue")
 				self.downloading=True
 		except:
 			self.downloading=False
@@ -468,7 +470,7 @@ class SelectCountry(Screen):
 	def __init__(self, session, xmlparse, selection):
 		Screen.__init__(self,session)
 		self['pixmap'] = Pixmap()
-		self["info"] = Label()
+		self["info"] = Label(_("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install."))
 		self['actions'] = ActionMap([
                 'OkCancelActions',
             'ColorActions',
@@ -477,7 +479,7 @@ class SelectCountry(Screen):
             'cancel': self.close,
             'red': self.close }, -1)
 		self['Key_Red'] = Label(_('Exit'))
-		self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install.")
+#		self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install.")
 		self.xmlparse = xmlparse
 		self.selection = selection
 		list = []
@@ -502,7 +504,7 @@ class SelectCountry(Screen):
 		self.com=com
 		self.dom=dom
 		if self.selection=="Picons":
-			self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading")
+#			self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading")
 			self.session.openWithCallback(self.callMyMsg, MessageBox, _("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install."), MessageBox.TYPE_YESNO)
 		else:
 			self.session.open(Console,_("downloading-installing: %s") % (dom), ["opkg install -force-overwrite %s" % com])
