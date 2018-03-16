@@ -1,4 +1,3 @@
-# Embedded file name: /usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Moduli/Setting.py
 from enigma import eTimer
 from random import choice
 import re, glob, shutil, os, urllib2, urllib, time, sys
@@ -13,7 +12,7 @@ try:
 except:
 	pass
 
-Version = '1.5'
+Version = '2.0'
 Directory = os.path.dirname(sys.modules[__name__].__file__)
 MinStart = int(choice(range(59)))
 
@@ -597,15 +596,15 @@ class GioppyGioSettings:
 								OnclearMem()
 								eDVBDB.getInstance().reloadServicelist()
 								eDVBDB.getInstance().reloadBouquets()
-							        MyMessage = _(' ') + ' ' + NameInfo + _('from') + ConverDate(jDate) + _('installed !')
+							        MyMessage = _(' ') + ' ' + NameInfo + _('\n:from\n') + ConverDate(jDate) + _('\ninstalled !')
 							else:
 								MyMessage = _('Sorry, cannot download !')
 						else:
-							MyMessage = _(' ') + ' New: ' + ConverDate(jDate) + ' Old: ' + ConverDate(Date)
+							MyMessage = _('New:\n') + ConverDate(jDate) + _('Old:\n') + ConverDate(Date)
 						break
 
 		else:
-			MyMessage = _('Sorry, no internet connection !')
+			MyMessage = _('Sorry.\nno internet connection !')
 		self.StartMessage()
 		self.iTimer4.start(1800, True)
 		self.TimerSetting()

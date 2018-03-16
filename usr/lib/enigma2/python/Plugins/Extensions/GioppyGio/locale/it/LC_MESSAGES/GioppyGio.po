@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Settings and picons\n"
-"POT-Creation-Date: 2018-03-12 04:05+0100\n"
-"PO-Revision-Date: 2018-03-12 04:07+0100\n"
+"POT-Creation-Date: 2018-03-14 20:42+0100\n"
+"PO-Revision-Date: 2018-03-14 20:42+0100\n"
 "Last-Translator:  FULL NAME <FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."
 ">\n"
 "Language-Team: GioppyGio\n"
@@ -15,83 +15,95 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Moduli/Select.py:154 plugin.py:129 plugin.py:421 plugin.py:479
+#: Moduli/Select.py:154 plugin.py:130 plugin.py:423 plugin.py:481
 msgid "Exit"
 msgstr "Uscire"
 
-#: Moduli/Select.py:155 plugin.py:130
+#: Moduli/Select.py:155 plugin.py:131
 msgid "Installed list:"
 msgstr "Elenco installato:"
 
-#: Moduli/Select.py:186 plugin.py:247
+#: Moduli/Select.py:186 plugin.py:248
 msgid "Last Update: Never"
 msgstr "Ultimo aggiornamento: mai"
 
-#: Moduli/Select.py:188 plugin.py:249
+#: Moduli/Select.py:188 plugin.py:250
 msgid "Last Update: "
 msgstr "Ultimo aggiornamento: "
 
-#: Moduli/Setting.py:559 Moduli/Setting.py:565
+#: Moduli/Setting.py:558 Moduli/Setting.py:564
 msgid ""
 "Sorry! New release downloaded, restart enigma in order to make "
 "updating the setting."
 msgstr ""
-"Scusate!  Nuova versione scaricata, riavvio di enigma per "
+"Scusate! Nuova versione scaricata, riavvio di enigma per "
 "aggiornare le impostazioni."
 
-#: Moduli/Setting.py:600 Moduli/Setting.py:604
+#: Moduli/Setting.py:599
 msgid " "
 msgstr ""
 
-#: Moduli/Setting.py:600
-msgid "from"
-msgstr "a partire dal"
+#: Moduli/Setting.py:599
+msgid "from\n"
+msgstr "a partire dal\n"
 
-#: Moduli/Setting.py:600
+#: Moduli/Setting.py:599
 msgid "installed !"
 msgstr "installato !"
 
-#: Moduli/Setting.py:602
+#: Moduli/Setting.py:601
 msgid "Sorry, cannot download !"
 msgstr "Siamo spiacenti, non è possibile scaricare!"
 
-#: Moduli/Setting.py:608
-msgid "Sorry, no internet connection !"
-msgstr "Siamo spiacenti, nessuna connessione Internet!"
+#: Moduli/Setting.py:603
+msgid "New:\n"
+msgstr "Nuovo:\n"
 
-#: plugin.py:132
+#: Moduli/Setting.py:603
+msgid "Old:\n"
+msgstr "Vecchio\n"
+
+#: Moduli/Setting.py:607
+msgid ""
+"Sorry.\n"
+"no internet connection !"
+msgstr ""
+"Scusate.\n"
+"Nessuna connessione internet !"
+
+#: plugin.py:133
 msgid "Picons"
 msgstr "Picons"
 
-#: plugin.py:199
+#: plugin.py:200
 msgid "Favourite: Yes"
 msgstr "Preferiti: Si"
 
-#: plugin.py:203 plugin.py:210
+#: plugin.py:204 plugin.py:211
 msgid "Favourite: No"
 msgstr "Preferiti: No"
 
-#: plugin.py:220
+#: plugin.py:221
 msgid "Auto Update: Yes"
-msgstr "Auto Update: Si"
+msgstr "Aggiornamento automatico: sì"
 
-#: plugin.py:224
+#: plugin.py:225
 msgid "Auto Update: No"
-msgstr "Auto Update: No"
+msgstr "Aggiornamento automatico: No"
 
-#: plugin.py:250
+#: plugin.py:251
 msgid "Favourite:"
 msgstr "Preferiti:"
 
-#: plugin.py:251
+#: plugin.py:252
 msgid "Auto Update:"
-msgstr "Auto Update:"
+msgstr "Aggiornamento automatico:"
 
-#: plugin.py:314
+#: plugin.py:315
 msgid "Server down for maintenance"
 msgstr "Server inattivo per manutenzione"
 
-#: plugin.py:347 plugin.py:349
+#: plugin.py:348 plugin.py:350
 #, python-format
 msgid ""
 "\n"
@@ -108,7 +120,7 @@ msgstr ""
 "vuoi continuare ? \n"
 "Questa operazione durerà alcuni secondi, per favore aspetta ..."
 
-#: plugin.py:351
+#: plugin.py:352
 #, python-format
 msgid ""
 "\n"
@@ -125,11 +137,7 @@ msgstr ""
 "vuoi continuare ? \n"
 "Questa operazione durerà alcuni secondi, per favore aspetta ..."
 
-#: plugin.py:454
-msgid "Dowanloding"
-msgstr "Download"
-
-#: plugin.py:455
+#: plugin.py:409 plugin.py:457
 msgid ""
 "It is recommended !!\n"
 "to mount the appropriate device before downloading.\n"
@@ -141,7 +149,11 @@ msgstr ""
 "Altrimenti,\n"
 "Premere OK per continuare"
 
-#: plugin.py:506
+#: plugin.py:456
+msgid "Dowanloding"
+msgstr "Download"
+
+#: plugin.py:473 plugin.py:508
 msgid ""
 "It is recommended !!\n"
 "to mount the appropriate device before downloading.\n"
@@ -153,7 +165,7 @@ msgstr ""
 "Altrimenti,\n"
 "Premere OK per installare."
 
-#: plugin.py:508 plugin.py:514
+#: plugin.py:510 plugin.py:516
 #, python-format
 msgid "downloading-installing: %s"
-msgstr "scaricamento-installazione: %s"
+msgstr "il download di-installazione: %s"
