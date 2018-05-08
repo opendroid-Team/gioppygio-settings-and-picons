@@ -23,7 +23,7 @@ from Tools.LoadPixmap import LoadPixmap
 import xml.dom.minidom
 import pprint
 from xml.dom import Node, minidom
-import requests
+#import requests
 from ServiceReference import ServiceReference
 import os, sys
 from os import listdir
