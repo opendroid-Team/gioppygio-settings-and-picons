@@ -9,7 +9,6 @@ def OnclearMem():
 	os.system('sync')
 	os.system('echo 3 > /proc/sys/vm/drop_caches')
 
-
 Directory = os.path.dirname(sys.modules[__name__].__file__)
 if not os.path.exists(Directory + '/Settings'):
 	os.system('mkdir  ' + Directory + '/GioppyGio')
@@ -25,7 +24,6 @@ def ConverDate(data):
 	mese = data[-6:][:2]
 	anno = data[-4:]
 	return giorno + '-' + mese + '-' + anno
-
 
 def Downloadxml():
 	try:
@@ -56,20 +54,12 @@ def DownloadSetting():
 					NameSat = str(x.get('Name'))
 					LinkSat = str(x.get('Link'))
 					DateSat = str(x.get('Date'))
-					ListSettings.append((NumberSat,
-					 NameSat,
-					 LinkSat,
-					 DateSat,
-					 '0',
-					 '0',
-					 '0',
-					 '0'))
+					ListSettings.append((NumberSat, NameSat, LinkSat, DateSat, '0', '0', '0', '0'))
 
 	except:
 		pass
 
 	return ListSettings
-
 
 def Load():
 	AutoTimer = '0'
@@ -118,16 +108,7 @@ def Load():
 		xf.write('DowDate = 0\n')
 		xf.write('NameInfo = 0\n')
 		xf.close()
-	return (Type,
-	 AutoTimer,
-	 Personal,
-	 NumberSat,
-	 NameSat,
-	 Date,
-	 NumberDtt,
-	 DowDate,
-	 NameInfo)
-
+	return (Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo)
 
 def WriteSave(Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo):
 	xf = open(Directory + '/Settings/Date', 'w')
@@ -142,7 +123,6 @@ def WriteSave(Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, Do
 	xf.write('DowDate = %s\n' % str(DowDate))
 	xf.write('NameInfo = %s\n' % str(NameInfo))
 	xf.close()
-
 
 def Plugin():
 	Vers = Link = Date = ''

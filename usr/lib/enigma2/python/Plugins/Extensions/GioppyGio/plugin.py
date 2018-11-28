@@ -30,7 +30,7 @@ from os import listdir
 from twisted.web.client import downloadPage 
 import urllib
 from enigma import *
-import sys, os	
+import sys, os
 from Moduli.Setting import *
 from Moduli.Config import *
 from Moduli.Select import *
@@ -98,23 +98,16 @@ class MenuGio(Screen):
 	def __init__(self, session):
 		self.session = session
 		Screen.__init__(self, session)
-		self['actions'] = ActionMap(['OkCancelActions',
-                                             'ShortcutActions',
-                 'WizardActions',
-                 'ColorActions',
-                 'SetupActions',
-                 'NumberActions',
-                 'MenuActions',
-                 'HelpActions',
-                 'EPGSelectActions'], {'ok': self.keyOK,
-                                       'up': self.keyUp,
+		self['actions'] = ActionMap(['OkCancelActions', 'ShortcutActions', 'WizardActions', 'ColorActions', 'SetupActions', 'NumberActions', 'MenuActions', 'HelpActions', 'EPGSelectActions'], 
+                {'ok': self.keyOK,
+                 'up': self.keyUp,
                  'down': self.keyDown,
                  'blue': self.Auto,
                  'yellow': self.Select,
                  'cancel': self.exitplug,
                  'left': self.keyRightLeft,
                  'right': self.keyRightLeft,
-                 "menu" : self.keyMenu,		 
+                 "menu" : self.keyMenu,
                  'red': self.exitplug}, -1)
 		self['autotimer'] = Label('')
 		self['namesat'] = Label('')
@@ -125,12 +118,12 @@ class MenuGio(Screen):
 		self['Yellow'] = Pixmap()
 		self['Yellow'].show()
 		self['Menu'] = Pixmap()
-		self['Menu'].show()		
+		self['Menu'].show()
 		self['Blue'].show()
 		self['Key_Red'] = Label(_('Exit'))
 		self['Key_Green'] = Label(_('Installed list:'))
 		self['Key_Personal'] = Label('')
-		self['Key_Menu'] = Label(_('Picons'))		
+		self['Key_Menu'] = Label(_('Picons'))
 		self['A'] = MenuListGioA([])
 		self['B'] = MenuListGioB([])
 		self['B'].selectionEnabled(1)
@@ -151,29 +144,6 @@ class MenuGio(Screen):
 		self.StopAutoWrite = False
 		self.ExitPlugin = eTimer()
 		self.ExitPlugin.callback.append(self.PluginClose)
-		self.onShown.append(self.ReturnSelect)
-		self.onShown.append(self.Info)		
-		if os.path.exists("/var/lib/dpkg/status"):
-			self.iTimer_conn = self.iTimer.timeout.connect(self.keyRightLeft)
-		else:
-			self.iTimer.callback.append(self.keyRightLeft)
-		self.iTimer.start(1000, True)
-		self.iTimer1 = eTimer()
-		if os.path.exists("/var/lib/dpkg/status"):
-			self.iTimer1_conn = self.iTimer1.timeout.connect(self.StartSetting)
-		else:
-			self.iTimer1.callback.append(self.StartSetting)
-		self.OnWriteAuto = eTimer()
-		if os.path.exists("/var/lib/dpkg/status"):
-			self.OnWriteAuto_conn = self.OnWriteAuto.timeout.connect(self.WriteAuto)
-		else:
-			self.OnWriteAuto.callback.append(self.WriteAuto)
-		self.StopAutoWrite = False
-		self.ExitPlugin = eTimer()
-		if os.path.exists("/var/lib/dpkg/status"):
-			self.ExitPlugin_conn = self.ExitPlugin.timeout.connect(self.PluginClose)
-		else:
-			self.ExitPlugin.callback.append(self.PluginClose)
 		self.onShown.append(self.ReturnSelect)
 		self.onShown.append(self.Info)
 
@@ -219,16 +189,16 @@ class MenuGio(Screen):
 		self.Type, AutoTimer, self.Personal, self.NumberSat, self.NameSat, self.Date, self.NumberDtt, self.DowDate, self.NameInfo = Load()
 		if int(AutoTimer) == 0:
 			self['autotimer'].setText(_('Auto Update: Yes'))
-			self.jAutoTimer = 1
+			self.AutoTimer = 1
 			iTimerClass.TimerSetting()
 		else:
 			self['autotimer'].setText(_('Auto Update: No'))
-			self.jAutoTimer = 0
+			self.AutoTimer = 0
 		self.OnWriteAuto.start(1000, True)
 
 	def WriteAuto(self):
 		self.StopAutoWrite = False
-		WriteSave(self.Type, self.jAutoTimer, self.Personal, self.NumberSat, self.NameSat, self.Date, self.NumberDtt, self.DowDate, self.NameInfo)
+		WriteSave(self.Type, self.AutoTimer, self.Personal, self.NumberSat, self.NameSat, self.Date, self.NumberDtt, self.DowDate, self.NameInfo)
 
 	def Info(self):
 		Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo = Load()
@@ -260,10 +230,7 @@ class MenuGio(Screen):
 		return res
 
 	def hauptListEntryMenuB(self, NumberSat, Name, jData, NumberDtt):
-		res = [(NumberSat,
-                        Name,
-                  jData,
-                  NumberDtt)]
+		res = [(NumberSat, Name, jData, NumberDtt)]
 		if NumberDtt == 'xx':
 			res.append(MultiContentEntryText(pos=(10, 5), size=(750, 35), font=0, text=Name, flags=RT_HALIGN_LEFT))
 			res.append(MultiContentEntryText(pos=(0, 0), size=(0, 0), font=0, text=jData, flags=RT_HALIGN_LEFT))
@@ -414,12 +381,10 @@ class picons(Screen):
 		Screen.__init__(self, session)
 		self['pixmap'] = Pixmap()
 		self['actions'] = ActionMap([
-                'OkCancelActions',
-            'ColorActions',
-            'DirectionActions'], {
-                    'ok': self.okClicked,
-            'cancel': self.close,
-            'red': self.close }, -1)
+                'OkCancelActions', 'ColorActions', 'DirectionActions'], 
+                   {'ok': self.okClicked,
+                    'cancel': self.close,
+                    'red': self.close }, -1)
 		self['Key_Red'] = Label(_('Exit'))
 		self["info"].setText("Connetting to\nAddons server...please wait")
 		self.timer = eTimer()
@@ -471,13 +436,10 @@ class SelectCountry(Screen):
 		Screen.__init__(self,session)
 		self['pixmap'] = Pixmap()
 		self["info"] = Label(_("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install."))
-		self['actions'] = ActionMap([
-                'OkCancelActions',
-            'ColorActions',
-            'DirectionActions'], {
-                    'ok': self.selCountry,
-            'cancel': self.close,
-            'red': self.close }, -1)
+		self['actions'] = ActionMap(['OkCancelActions', 'ColorActions', 'DirectionActions'], 
+                     {'ok': self.selCountry,
+                      'cancel': self.close,
+                      'red': self.close }, -1)
 		self['Key_Red'] = Label(_('Exit'))
 #		self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install.")
 		self.xmlparse = xmlparse
@@ -527,6 +489,8 @@ def SessionStart(reason, **kwargs):
 	jsession = kwargs['session']
 
 
+iTimerClass = GioppyGioSettings(jsession)
+
 def AutoStart(reason, **kwargs):
 	if reason == 1:
 		iTimerClass.StopTimer()
@@ -537,5 +501,5 @@ def Main(session, **kwargs):
 
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name='GioppyGio Panel v.2.0', description='Enigma2 Channel Settings and Picons v.2.0!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main), PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart), PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
+	return [PluginDescriptor(name='GioppyGio Panel v.2.1', description='Enigma2 Channel Settings and Picons v.2.0!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main), PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart), PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
 global giopath ## Warning: Unused global

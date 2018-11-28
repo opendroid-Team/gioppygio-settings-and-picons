@@ -160,21 +160,14 @@ class MenuSelect(Screen,ConfigListScreen):
 		self.Info()
 		self.Menu()
 		self.MenuA()
-		self['actions'] = ActionMap(['OkCancelActions',
-		 'ShortcutActions',
-		 'WizardActions',
-		 'ColorActions',
-		 'SetupActions',
-		 'NumberActions',
-		 'MenuActions',
-		 'HelpActions',
-		 'EPGSelectActions'], {'ok': self.OkSelect,
-		 'up': self.keyUp,
-		 'down': self.keyDown,
-		 'cancel': self.Uscita,
-		 'nextBouquet': self['B'].pageUp,
-		 'prevBouquet': self['B'].pageDown,
-		 'red': self.Uscita}, -1)
+		self['actions'] = ActionMap(['OkCancelActions', 'ShortcutActions', 'WizardActions', 'ColorActions', 'SetupActions', 'NumberActions', 'MenuActions', 'HelpActions', 'EPGSelectActions'], 
+			{'ok': self.OkSelect,
+			 'up': self.keyUp,
+			 'down': self.keyDown,
+			 'cancel': self.Uscita,
+			 'nextBouquet': self['B'].pageUp,
+			 'prevBouquet': self['B'].pageDown,
+			 'red': self.Uscita}, -1)
 
 	def Info(self):
 		Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo = Load()

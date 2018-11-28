@@ -12,7 +12,7 @@ try:
 except:
 	pass
 
-Version = '2.0'
+Version = '2.1'
 Directory = os.path.dirname(sys.modules[__name__].__file__)
 MinStart = int(choice(range(59)))
 
@@ -99,11 +99,7 @@ def StartSavingTerrestrialChannels(lamedb, type):
 		for jx in ReadingTempServicelist:
 			if jx.find('eeee') != -1:
 				String = jx.split(':')
-				WritingBouquetTemporary.write('#SERVICE 1:0:%s:%s:%s:%s:%s:0:0:0:\n' % (hex(int(String[4]))[2:],
-				 String[0],
-				 String[2],
-				 String[3],
-				 String[1]))
+				WritingBouquetTemporary.write('#SERVICE 1:0:%s:%s:%s:%s:%s:0:0:0:\n' % (hex(int(String[4]))[2:], String[0], String[2], String[3], String[1]))
 
 		WritingBouquetTemporary.close()
 
@@ -447,27 +443,14 @@ class GioppyGioSettings:
 
 	def __init__(self, session = None):
 		self.session = session
-		self.iTimer1 = eTimer()
-		if os.path.exists("/var/lib/dpkg/status"):
-			self.iTimer1_conn = self.iTimer1.timeout.connect(self.startTimerSetting)
-		else:
-			self.iTimer1.callback.append(self.startTimerSetting)
-		self.iTimer2 = eTimer()
-		if os.path.exists("/var/lib/dpkg/status"):
-			self.iTimer2_conn = self.iTimer2.timeout.connect(self.startTimerSetting)
-		else:
-			self.iTimer2.callback.append(self.startTimerSetting)
-		self.iTimer3 = eTimer()
-		if os.path.exists("/var/lib/dpkg/status"):
-			self.iTimer3_conn = self.iTimer3.timeout.connect(self.startTimerSetting)
-		else:
-			self.iTimer3.callback.append(self.startTimerSetting)
+                self.iTimer1 = eTimer()
+                self.iTimer2 = eTimer()
+                self.iTimer3 = eTimer()
 		self.iTimer4 = eTimer()
-		if os.path.exists("/var/lib/dpkg/status"):
-			self.iTimer4_conn = self.iTimer4.timeout.connect(self.StopMessage)
-		else:
-			self.iTimer4.callback.append(self.StopMessage)
-		self.VersPlugin = Plugin()
+		self.iTimer1.callback.append(self.startTimerSetting)
+		self.iTimer2.callback.append(self.startTimerSetting)
+		self.iTimer3.callback.append(self.startTimerSetting)
+		self.iTimer4.callback.append(self.StopMessage)
 
 	def gotSession(self, session):
 		self.session = session
@@ -499,33 +482,9 @@ class GioppyGioSettings:
 
 		now = time.time()
 		ttime = time.localtime(now)
-		start_time1 = time.mktime([ttime[0],
-		 ttime[1],
-		 ttime[2],
-		 6,
-		 MinStart,
-		 0,
-		 ttime[6],
-		 ttime[7],
-		 ttime[8]])
-		start_time2 = time.mktime([ttime[0],
-		 ttime[1],
-		 ttime[2],
-		 14,
-		 MinStart,
-		 0,
-		 ttime[6],
-		 ttime[7],
-		 ttime[8]])
-		start_time3 = time.mktime([ttime[0],
-		 ttime[1],
-		 ttime[2],
-		 22,
-		 MinStart,
-		 0,
-		 ttime[6],
-		 ttime[7],
-		 ttime[8]])
+                start_time1 = time.mktime([ttime[0], ttime[1], ttime[2], 6, MinStart, 0, ttime[6], ttime[7], ttime[8]])
+                start_time2 = time.mktime([ttime[0], ttime[1], ttime[2], 14, MinStart, 0, ttime[6], ttime[7], ttime[8]])
+                start_time3 = time.mktime([ttime[0], ttime[1], ttime[2], 22, MinStart, 0, ttime[6], ttime[7], ttime[8]])
 		if start_time1 < now + 60:
 			start_time1 += 86400
 		if start_time2 < now + 60:
@@ -552,20 +511,6 @@ class GioppyGioSettings:
 		self.iScreenMessage.gotSession(self.session)
 		self.iScreenMessage.Messageinfo.show()
 
-	def NewVersion(self):
-		global MyMessage
-		if os.path.exists('/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/New'):
-			MyMessage = _('Sorry! New release downloaded, restart enigma in order to make updating the setting.')
-			return False
-		if self.VersPlugin:
-			if self.VersPlugin[0] != Version:
-				if DownloadPlugin(' ' + self.VersPlugin[0]):
-					os.system('rm -fr /tmp/Plugin.zip')
-					MyMessage = _('Sorry! New release downloaded, restart enigma in order to make updating the setting.')
-					open('/usr/lib/enigma2/python/Plugins/Extensions/', 'w')
-					return False
-		return True
-
 	def startTimerSetting(self, Auto = False):
 		global MyMessage
 		Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo = Load()
@@ -580,7 +525,6 @@ class GioppyGioSettings:
 			return
 
 		if OnDsl():
-			if self.NewVersion():
 				for jNumberSat, jNameSat, jLinkSat, jDateSat, jNumberDtt, jNameDtt, jLinkDtt, jDateDtt in DownloadSetting():
 					jDate = jDateSat
 					if jDateDtt:
