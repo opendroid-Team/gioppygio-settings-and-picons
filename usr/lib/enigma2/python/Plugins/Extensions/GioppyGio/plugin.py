@@ -30,7 +30,7 @@ from os import listdir
 from twisted.web.client import downloadPage 
 import urllib
 from enigma import *
-import sys, osH
+import sys, os
 from Moduli.Setting import *
 from Moduli.Config import *
 from Moduli.Select import *
