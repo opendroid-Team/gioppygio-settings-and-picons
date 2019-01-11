@@ -30,7 +30,7 @@ from os import listdir
 from twisted.web.client import downloadPage 
 import urllib
 from enigma import *
-import sys, os
+import sys, osH
 from Moduli.Setting import *
 from Moduli.Config import *
 from Moduli.Select import *
@@ -501,5 +501,5 @@ def Main(session, **kwargs):
 
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name='GioppyGio Panel v.2.1', description='Enigma2 Channel Settings and Picons v.2.0!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main), PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart), PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
+	return [PluginDescriptor(name='GioppyGio Panel v.2.1', description='Enigma2 Channel Settings and Picons v.2.1!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main), PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart), PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
 global giopath ## Warning: Unused global
