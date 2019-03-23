@@ -17,13 +17,13 @@ if not os.path.exists(Directory + '/Settings/Temp'):
 if os.path.exists(' /usr/lib/enigma2/python/Plugins/Extensions/'):
 	os.system('rm -fr /usr/lib/enigma2/python/Plugins/Extensions/')
 
-def ConverDate(data):
-	if not data:
+def ConverDate(Date):
+	if not Date:
 		return
-	giorno = data[:2]
-	mese = data[-4:][:2]
-	anno = data[-2:]
-	return giorno + '-' + mese + '-20' + anno
+	day = Date[:2]
+	month = Date[-6:][:2]
+	year = Date[-4:]
+	return day + '-' + month + '-' + year
 
 def Downloadxml():
 	try:

@@ -143,7 +143,7 @@ class MenuSelect(Screen,ConfigListScreen):
 		self['autotimer'] = Label('')
 		self['namesat'] = Label('')
 		self['text'] = Label('')
-		self['dataDow'] = Label('')
+		self['dateDow'] = Label('')
 		self['Green'] = Pixmap()
 		self['Blue'] = Pixmap()
 		self['Yellow'] = Pixmap()
@@ -180,7 +180,7 @@ class MenuSelect(Screen,ConfigListScreen):
 		else:
 			newDowDate = _('Last Update: ') + DowDate
 		self['namesat'].setText(NameInfo + newdate)
-		self['dataDow'].setText(newDowDate)
+		self['dateDow'].setText(newDowDate)
 
 	def Uscita(self):
 		self.close()

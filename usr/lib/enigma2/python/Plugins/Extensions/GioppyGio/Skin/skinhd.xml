@@ -13,7 +13,7 @@
   <widget name="A" position="9,70" size="260,460" foregroundColor="#00cccccc" foregroundColorSelected="#00ffffff" backgroundColor="#00000000" backgroundColorSelected="#00003366" scrollbarMode="showNever" enableWrapAround="1" transparent="1" zPosition="5" />
   <widget name="B" position="290,70" size="980,510" scrollbarMode="showNever" enableWrapAround="1" transparent="1" zPosition="20" foregroundColor="#00cccccc" foregroundColorSelected="#00ffffff" backgroundColor="#00000000" backgroundColorSelected="#00003366" />
   <widget name="text" position="0,70" size="1100,630" font="Regular;20" halign="left" foregroundColor="foreground" backgroundColor="background" transparent="1" zPosition="1" />
-  <widget position="290,605" size="733,24" name="dataDow" font="Regular;20" halign="left" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="3" />
+  <widget position="290,605" size="733,24" name="dateDow" font="Regular;20" halign="left" foregroundColor="green" backgroundColor="background" transparent="1" zPosition="3" />
   <widget position="10,585" size="35,35" name="Green" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/key_yellow.png" zPosition="2" alphatest="blend" />
   <widget position="10,585" size="35,35" name="Yellow" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/key_yellow.png" zPosition="2" alphatest="blend" />
   <widget position="50,590" size="200,24" name="Key_Personal" font="Regular;20" halign="left" foregroundColor="#00ffffff" backgroundColor="#00000000" zPosition="1" transparent="1" />

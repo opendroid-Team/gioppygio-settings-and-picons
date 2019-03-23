@@ -112,7 +112,7 @@ class MenuGio(Screen):
 		self['autotimer'] = Label('')
 		self['namesat'] = Label('')
 		self['text'] = Label('')
-		self['dataDow'] = Label('')
+		self['dateDow'] = Label('')
 		self['Green'] = Pixmap()
 		self['Blue'] = Pixmap()
 		self['Yellow'] = Pixmap()
@@ -221,7 +221,7 @@ class MenuGio(Screen):
 		self['Key_Personal'].setText(_('Favourite:') + jPersonal)
 		self['autotimer'].setText(_('Auto Update:') + TypeTimer)
 		self['namesat'].setText(NameInfo + newdate)
-		self['dataDow'].setText(newDowDate)
+		self['dateDow'].setText(newDowDate)
 
 	def hauptListEntryMenuA(self, name, type):
 		res = [(name, type)]
@@ -307,7 +307,7 @@ class MenuGio(Screen):
 			nData = 0
 
 		try:
-			njData = int(self['B'].getCurrent()[0][1])
+			njData = int(self['B'].getCurrent()[0][2].replace('-', ''))
 		except:
 			njData = 999999
 
