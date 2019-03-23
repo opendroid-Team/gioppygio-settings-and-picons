@@ -4,7 +4,7 @@
   <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/bg1280.png" position="0,0" zPosition="-20" size="1100,720" />
   <eLabel name="vertikalline" position="279,70" size="2,585" foregroundColor="#00003366" backgroundColor="#00003366" />
   <eLabel text="www.gioppygio.net" position="291,670" size="702,36" font="Regular;30" halign="center" valign="center" foregroundColor="#0000deff" backgroundColor="#00000000" transparent="1" />
-  <eLabel text="GioppyGio E2 Settings and Picons Panel v2.1" position="10,10" size="900,40" font="Regular; 25" halign="left" valign="center" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1" zPosition="1" />
+  <eLabel text="GioppyGio E2 Settings and Picons Panel v2.2" position="10,10" size="900,40" font="Regular; 25" halign="left" valign="center" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1" zPosition="1" />
   <ePixmap position="46,345" size="180,224" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/gioppy1.png" zPosition="2" alphatest="blend" />
   <widget source="global.CurrentTime" render="Label" position="450,15" size="575,40" font="Regular; 26" halign="right" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1">
   <convert type="ClockToText">Format:%a, %d.%m.%Y   %H:%M</convert>
@@ -27,11 +27,11 @@
   <widget position="72,549" size="200,24" name="Key_Menu" font="Regular;20" halign="left" foregroundColor="#00ffffff" backgroundColor="background" zPosition="1" transparent="1" />
   <eLabel name="" position="287,598" size="1100,2" zPosition="2" backgroundColor="#00003366" />
   </screen>
-   <screen name="picons" position="0,0" size="1100,720" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.2.1 ::..">
+   <screen name="picons" position="0,0" size="1100,720" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.2.2 ::..">
    <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/bg1280.png" position="0,0" zPosition="-20" size="1100,720" />
   <eLabel name="vertikalline" position="279,70" size="2,585" foregroundColor="#00003366" backgroundColor="#00003366" />
   <eLabel text="www.gioppygio.net" position="291,670" size="702,36" font="Regular;32" halign="center" valign="center" foregroundColor="#0000deff" backgroundColor="#00000000" transparent="1" />
-  <eLabel text="GioppyGio E2 Picons Panel v2.1" position="10,10" size="900,40" font="Regular; 26" halign="left" valign="center" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1" zPosition="1" />
+  <eLabel text="GioppyGio E2 Picons Panel v2.2" position="10,10" size="900,40" font="Regular; 26" halign="left" valign="center" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1" zPosition="1" />
   <ePixmap position="46,460" size="180,224" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/gioppy1.png" zPosition="2" alphatest="blend" />
   <ePixmap position="10,673" size="35,35" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/key_red.png" zPosition="2" alphatest="blend" />
   <widget position="50,678" size="200,24" name="Key_Red" font="Regular;20" halign="left" foregroundColor="#00ffffff" backgroundColor="#00000000" zPosition="1" transparent="1" />
@@ -43,14 +43,14 @@
   <widget name="lab1" position="10,100" zPosition="11" size="260,350" font="Regular;20" foregroundColor="#ffcc33" transparent="1" halign="center" valign="center" />
   <eLabel name="" position="287,598" size="1100,2" zPosition="2" backgroundColor="#00003366" />
  </screen>
- <screen name="SelectCountry" position="0,0" size="1100,720" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.2.1 ::..">
+ <screen name="SelectCountry" position="0,0" size="1100,720" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.2.2 ::..">
  <widget name="countrymenu" position="290,70" size="980,520" zPosition="2" itemHeight="40" font="Regular;24" foregroundColor="#00ffffff" foregroundColorSelected="#00ffffff" backgroundColor="#00000000" backgroundColorSelected="#00003366" transparent="1" />
  <eLabel name="" position="287,598" size="1100,2" zPosition="2" backgroundColor="#00003366" />
  <widget name="info" position="10,100" zPosition="11" size="260,350" font="Regular;20" foregroundColor="#ffcc33" transparent="1" halign="center" valign="center" />
  <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/bg1280.png" position="0,0" zPosition="-20" size="1100,720" />
  <eLabel name="vertikalline" position="279,70" size="2,585" foregroundColor="#00003366" backgroundColor="#00003366" />
  <eLabel text="www.gioppygio.net" position="291,670" size="702,36" font="Regular;32" halign="center" valign="center" foregroundColor="#0000deff" backgroundColor="#00000000" transparent="1" />
- <eLabel text="GioppyGio E2 Picons Panel v2.1" position="10,10" size="900,40" font="Regular; 26" halign="left" valign="center" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1" zPosition="1" />
+ <eLabel text="GioppyGio E2 Picons Panel v2.2" position="10,10" size="900,40" font="Regular; 26" halign="left" valign="center" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1" zPosition="1" />
  <ePixmap position="46,460" size="180,224" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/gioppy1.png" zPosition="2" alphatest="blend" />
  <ePixmap position="10,673" size="35,35" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/key_red.png" zPosition="2" alphatest="blend" />
  <widget position="50,678" size="200,24" name="Key_Red" font="Regular;20" halign="left" foregroundColor="#00ffffff" backgroundColor="#00000000" zPosition="1" transparent="1" />
@@ -62,7 +62,7 @@
   <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/bg1280.png" position="0,0" zPosition="-20" size="1100,720" />
   <eLabel name="vertikalline" position="279,70" size="2,585" foregroundColor="#00003366" backgroundColor="#00003366" />
   <eLabel text="www.gioppygio.net" position="291,670" size="702,36" font="Regular;30" halign="center" valign="center" foregroundColor="#0000deff" backgroundColor="#00000000" transparent="1" />
-  <eLabel text="GioppyGio E2 Settings and Picons Panel v2.1" position="10,10" size="900,40" font="Regular; 25" halign="left" valign="center" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1" zPosition="1" />
+  <eLabel text="GioppyGio E2 Settings and Picons Panel v2.2" position="10,10" size="900,40" font="Regular; 25" halign="left" valign="center" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1" zPosition="1" />
   <ePixmap position="46,345" size="180,224" pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/gioppy1.png" zPosition="2" alphatest="blend" />
   <widget source="global.CurrentTime" render="Label" position="450,15" size="575,40" font="Regular; 26" halign="right" foregroundColor="#00ffffff" backgroundColor="#00000000" transparent="1">
   <convert type="ClockToText">Format:%a, %d.%m.%Y   %H:%M</convert>

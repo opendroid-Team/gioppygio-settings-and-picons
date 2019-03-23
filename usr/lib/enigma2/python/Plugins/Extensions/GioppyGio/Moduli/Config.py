@@ -21,9 +21,9 @@ def ConverDate(data):
 	if not data:
 		return
 	giorno = data[:2]
-	mese = data[-6:][:2]
-	anno = data[-4:]
-	return giorno + '-' + mese + '-' + anno
+	mese = data[-4:][:2]
+	anno = data[-2:]
+	return giorno + '-' + mese + '-20' + anno
 
 def Downloadxml():
 	try:
@@ -111,7 +111,6 @@ def Load():
 	return (Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo)
 
 def WriteSave(Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo):
-	xf = open(Directory + '/Settings/Date', 'w')
 	xf = open(Directory + '/Settings/Date', 'w')
 	xf.write('AutoTimer = %s\n' % str(AutoTimer))
 	xf.write('Type = %s\n' % str(Type))

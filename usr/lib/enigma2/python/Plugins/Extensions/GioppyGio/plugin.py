@@ -194,7 +194,7 @@ class MenuGio(Screen):
 		else:
 			self['autotimer'].setText(_('Auto Update: No'))
 			self.AutoTimer = 0
-		self.OnWriteAuto.start(1000, True)
+		self.OnWriteAuto.start(500, True)
 
 	def WriteAuto(self):
 		self.StopAutoWrite = False
@@ -307,7 +307,7 @@ class MenuGio(Screen):
 			nData = 0
 
 		try:
-			njData = int(self['B'].getCurrent()[0][2].replace('-', ''))
+			njData = int(self['B'].getCurrent()[0][1])
 		except:
 			njData = 999999
 
@@ -501,5 +501,5 @@ def Main(session, **kwargs):
 
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name='GioppyGio Panel v.2.1', description='Enigma2 Channel Settings and Picons v.2.1!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main), PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart), PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
+	return [PluginDescriptor(name='GioppyGio Panel v.2.2', description='Enigma2 Channel Settings and Picons v.2.2!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main), PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart), PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
 global giopath ## Warning: Unused global
