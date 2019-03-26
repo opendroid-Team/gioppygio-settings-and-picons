@@ -12,15 +12,15 @@ try:
 except:
 	pass
 
-Version = '2.1'
+Version = '2.2'
 Directory = os.path.dirname(sys.modules[__name__].__file__)
 MinStart = int(choice(range(59)))
 
 def TimerControl():
 	now = time.localtime(time.time())
-	Ora = str(now[3]).zfill(2) + ':' + str(now[4]).zfill(2) + ':' + str(now[5]).zfill(2)
+	hour = str(now[3]).zfill(2) + ':' + str(now[4]).zfill(2) + ':' + str(now[5]).zfill(2)
 	Date = str(now[2]).zfill(2) + '-' + str(now[1]).zfill(2) + '-' + str(now[0])
-	return '%s ora: %s' % (Date, Ora)
+	return '%s hour: %s' % (Date, hour)
 
 
 def StartSavingTerrestrialChannels(lamedb, type):
