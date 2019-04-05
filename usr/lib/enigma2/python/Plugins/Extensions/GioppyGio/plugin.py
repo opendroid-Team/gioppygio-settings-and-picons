@@ -30,7 +30,7 @@ from os import listdir
 from twisted.web.client import downloadPage 
 import urllib
 from enigma import *
-import sys, os
+import sys,os
 from Moduli.Setting import *
 from Moduli.Config import *
 from Moduli.Select import *
@@ -98,21 +98,21 @@ class MenuGio(Screen):
 	def __init__(self, session):
 		self.session = session
 		Screen.__init__(self, session)
-		self['actions'] = ActionMap(['OkCancelActions', 'ShortcutActions', 'WizardActions', 'ColorActions', 'SetupActions', 'NumberActions', 'MenuActions', 'HelpActions', 'EPGSelectActions'], 
-                {'ok': self.keyOK,
-                 'up': self.keyUp,
-                 'down': self.keyDown,
-                 'blue': self.Auto,
-                 'yellow': self.Select,
-                 'cancel': self.exitplug,
-                 'left': self.keyRightLeft,
-                 'right': self.keyRightLeft,
-                 "menu" : self.keyMenu,
-                 'red': self.exitplug}, -1)
-		self['autotimer'] = Label('')
-		self['namesat'] = Label('')
-		self['text'] = Label('')
-		self['dateDow'] = Label('')
+		self["actions"]  = ActionMap(["OkCancelActions", "ShortcutActions", "WizardActions", "ColorActions", "SetupActions", "NumberActions", "MenuActions", "HelpActions","EPGSelectActions"], { 
+                 "ok"    : self.keyOK,
+                 "up"    : self.keyUp,
+                 "down"  : self.keyDown,
+                 "blue"  : self.Auto,
+                 "yellow": self.Select,
+                 "cancel": self.exitplug,
+                 "left"  : self.keyRightLeft,
+                 "right" : self.keyRightLeft,
+                 "menu"  : self.keyMenu,
+                 "red"   : self.exitplug}, -1)
+		self['autotimer'] = Label("")
+		self['namesat'] = Label("")
+		self['text'] = Label("")
+		self['dateDow'] = Label("")
 		self['Green'] = Pixmap()
 		self['Blue'] = Pixmap()
 		self['Yellow'] = Pixmap()
@@ -136,7 +136,7 @@ class MenuGio(Screen):
 		self.MenuB()
 		self.iTimer = eTimer()
 		self.iTimer.callback.append(self.keyRightLeft)
-		self.iTimer.start(1000, True)
+		self.iTimer.start(1000,True)
 		self.iTimer1 = eTimer()
 		self.iTimer1.callback.append(self.StartSetting)
 		self.OnWriteAuto = eTimer()
@@ -159,49 +159,49 @@ class MenuGio(Screen):
 
 	def exitplug(self):
 		if self.DubleClick:
-			self.ExitPlugin.start(10, True)
+			self.ExitPlugin.start(10,True)
 			self.DubleClick = False
 		else:
 			self.PluginClose()
 
 	def Select(self):
-		Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo = Load()
+		Type,AutoTimer,Personal,NumberSat,NameSat,Date,NumberDtt,DowDate,NameInfo = Load()
 		if str(Personal).strip() == '0':
-			self['Key_Personal'].setText(_('Favourite: Yes'))
+			self['Key_Personal'].setText(_("Favourite: Yes"))
 			Personal = '1'
 			self.session.open(MenuSelect)
 		else:
-			self['Key_Personal'].setText(_('Favourite: No'))
+			self['Key_Personal'].setText(_("Favourite: No"))
 			Personal = '0'
-		WriteSave(Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo)
+		WriteSave(Type,AutoTimer,Personal,NumberSat,NameSat,Date,NumberDtt,DowDate,NameInfo)
 
 	def ReturnSelect(self):
-		Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo = Load()
-		if not os.path.exists('/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Moduli/Settings/Select') or os.path.getsize('/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Moduli/Settings/Select') < 20:
-			self['Key_Personal'].setText(_('Favourite: No'))
-			WriteSave(Type, AutoTimer, '0', NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo)
+		Type, AutoTimer,Personal,NumberSat,NameSat,Date,NumberDtt,DowDate,NameInfo= Load()
+		if not os.path.exists('/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Moduli/Settings/Select' ) or os.path.getsize('/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Moduli/Settings/Select' ) < 20:
+			self['Key_Personal'].setText(_("Favourite: No"))
+			WriteSave(Type, AutoTimer,'0' , NumberSat,NameSat,Date,NumberDtt,DowDate,NameInfo)
 
 	def Auto(self):
 		if self.StopAutoWrite:
 			return
 		self.StopAutoWrite = True
 		iTimerClass.StopTimer()
-		self.Type, AutoTimer, self.Personal, self.NumberSat, self.NameSat, self.Date, self.NumberDtt, self.DowDate, self.NameInfo = Load()
+		self.Type,AutoTimer,self.Personal,self.NumberSat,self.NameSat,self.Date,self.NumberDtt,self.DowDate,self.NameInfo= Load()
 		if int(AutoTimer) == 0:
-			self['autotimer'].setText(_('Auto Update: Yes'))
-			self.AutoTimer = 1
+			self['autotimer'].setText(_("Auto Update: Yes"))
+			self.jAutoTimer = 1
 			iTimerClass.TimerSetting()
 		else:
-			self['autotimer'].setText(_('Auto Update: No'))
-			self.AutoTimer = 0
-		self.OnWriteAuto.start(500, True)
+			self['autotimer'].setText(_("Auto Update: No"))
+			self.jAutoTimer = 0
+		self.OnWriteAuto.start(1000,True)
 
 	def WriteAuto(self):
 		self.StopAutoWrite = False
-		WriteSave(self.Type, self.AutoTimer, self.Personal, self.NumberSat, self.NameSat, self.Date, self.NumberDtt, self.DowDate, self.NameInfo)
+		WriteSave(self.Type, self.jAutoTimer,self.Personal,self.NumberSat,self.NameSat,self.Date,self.NumberDtt,self.DowDate,self.NameInfo)
 
 	def Info(self):
-		Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo = Load()
+		Type, AutoTimer,Personal,NumberSat,NameSat,Date,NumberDtt,DowDate,NameInfo = Load()
 		if int(AutoTimer) == 0:
 			TypeTimer = 'No'
 		else:
@@ -211,15 +211,15 @@ class MenuGio(Screen):
 		else:
 			jPersonal = 'Yes'
 		if str(Date) == '0':
-			newdate = ''
+			newdate = ('')
 		else:
-			newdate = ' - ' + ConverDate(Date)
+			newdate = (' - '+ConverDate(Date))
 		if str(DowDate) == '0':
-			newDowDate = _('Last Update: Never')
+			newDowDate = _("Last Update: Never")
 		else:
 			newDowDate = _('Last Update: ') + DowDate
-		self['Key_Personal'].setText(_('Favourite:') + jPersonal)
-		self['autotimer'].setText(_('Auto Update:') + TypeTimer)
+		self['Key_Personal'].setText(_("Favourite:")+jPersonal)
+		self['autotimer'].setText(_("Auto Update:")+TypeTimer)
 		self['namesat'].setText(NameInfo + newdate)
 		self['dateDow'].setText(newDowDate)
 
@@ -231,7 +231,7 @@ class MenuGio(Screen):
 
 	def hauptListEntryMenuB(self, NumberSat, Name, jData, NumberDtt):
 		res = [(NumberSat, Name, jData, NumberDtt)]
-		if NumberDtt == 'xx':
+		if NumberDtt =='xx':
 			res.append(MultiContentEntryText(pos=(10, 5), size=(750, 35), font=0, text=Name, flags=RT_HALIGN_LEFT))
 			res.append(MultiContentEntryText(pos=(0, 0), size=(0, 0), font=0, text=jData, flags=RT_HALIGN_LEFT))
 			res.append(MultiContentEntryText(pos=(10, 5), size=(460, 35), font=0, text=Name, flags=RT_HALIGN_LEFT))
@@ -269,35 +269,35 @@ class MenuGio(Screen):
 			self['B'].setList(self.jB)
 			return
 		for NumberSat, NameSat, LinkSat, DateSat, NumberDtt, NameDtt, LinkDtt, DateDtt in self.List:
-			if NameSat.lower().find(self['A'].getCurrent()[0][1]) != -1:
+			if NameSat.lower().find(self["A"].getCurrent()[0][1]) != -1:
 				if str(NameDtt) != '0':
 					jData = str(DateSat)
 					if int(DateDtt) > int(DateSat):
 						jData = str(DateDtt)
-					self.jB.append(self.hauptListEntryMenuB(NumberSat, NameSat.split('(')[0] + ' + ' + NameDtt, ConverDate(str(jData)), NumberDtt))
+					self.jB.append(self.hauptListEntryMenuB(NumberSat,NameSat.split('(')[0]+' + '+NameDtt,ConverDate(str(jData)),NumberDtt))
 				else:
-					self.jB.append(self.hauptListEntryMenuB(NumberSat, NameSat, ConverDate(str(DateSat)), '0'))
+					self.jB.append(self.hauptListEntryMenuB(NumberSat,NameSat,ConverDate(str(DateSat)),'0'))
 
 		if not self.jB:
-			self.jB.append(self.hauptListEntryMenuB(_('Server down for maintenance'), '', '', ''))
-			self['B'].setList(self.jB)
+			self.jB.append(self.hauptListEntryMenuB(_('Server down for maintenance'),'','',''))
+			self["B"].setList(self.jB)
 			self.ServerOn = False
 			self.MenuA()
 			return
-		self['B'].setList(self.jB)
+		self["B"].setList(self.jB)
 
 	def keyOK(self):
 		if not self.ServerOn:
 			return
 		if self.currentlist == 'A':
 			self.currentlist = 'B'
-			self['B'].selectionEnabled(1)
-			self['A'].selectionEnabled(0)
+			self["B"].selectionEnabled(1)
+			self["A"].selectionEnabled(0)
 			return
-		Type, self.AutoTimer, self.Personal, NumberSat, NameSat, self.Date, NumberDtt, self.DowDate, NameInfo = Load()
-		self.name = self['B'].getCurrent()[0][1]
-		self.NumberSat = self['B'].getCurrent()[0][0]
-		self.NumberDtt = self['B'].getCurrent()[0][3]
+		Type,self.AutoTimer,self.Personal,NumberSat,NameSat,self.Date,NumberDtt,self.DowDate,NameInfo=Load()
+		self.name = self["B"].getCurrent()[0][1]
+		self.NumberSat= self["B"].getCurrent()[0][0]
+		self.NumberDtt= self["B"].getCurrent()[0][3]
 		self.jType = '1'
 		if self.name.lower().find('dtt') != -1:
 			self.jType = '0'
@@ -307,32 +307,32 @@ class MenuGio(Screen):
 			nData = 0
 
 		try:
-			njData = int(self['B'].getCurrent()[0][2].replace('-', ''))
+			njData = int(self["B"].getCurrent()[0][2].replace('-',''))
 		except:
 			njData = 999999
 
 		if NameSat != self.name or Type != self.jType:
-			self.session.openWithCallback(self.OnDownload, MessageBox, _('\nList: %s\nDate: %s\nYour selection is ready to install,\nwant to continue ? \nThis make take a few seconds, please wait ...') % (self.name, self['B'].getCurrent()[0][2]), MessageBox.TYPE_YESNO, timeout=20)
+			self.session.openWithCallback(self.OnDownload, MessageBox,_('\nList: %s\nDate: %s\nYour selection is ready to install,\nwant to continue ? \nThis make take a few seconds, please wait ...') % (self.name, self['B'].getCurrent()[0][2]), MessageBox.TYPE_YESNO, timeout = 20)
 		elif njData > nData:
-			self.session.openWithCallback(self.OnDownload, MessageBox, _('\nList: %s\nDate: %s\nYour selection is ready to install,\nwant to continue ? \nThis make take a few seconds, please wait ...') % (self.name, self['B'].getCurrent()[0][2]), MessageBox.TYPE_YESNO, timeout=20)
+			self.session.openWithCallback(self.OnDownload, MessageBox, _('\nList: %s\nDate: %s\nYour selection is ready to install,\nwant to continue ? \nThis make take a few seconds, please wait ...') % (self.name, self['B'].getCurrent()[0][2]), MessageBox.TYPE_YESNO, timeout = 20)
 		else:
-			self.session.openWithCallback(self.OnDownloadForce, MessageBox, _('\nList: %s\nDate: %s\nYour selection is already installed,\nwant to continue ? \nThis make take a few seconds, please wait ...'), MessageBox.TYPE_YESNO, timeout=20)
+			self.session.openWithCallback(self.OnDownloadForce, MessageBox, _('\nList: %s\nDate: %s\nYour selection is already installed,\nwant to continue ? \nThis make take a few seconds, please wait ...'), MessageBox.TYPE_YESNO, timeout = 20)
 
-	def OnDownloadForce(self, conf):
+	def OnDownloadForce(self,conf):
 		if conf:
-			self.OnDownload(True, False)
+			self.OnDownload(True,False)
 
 	def StartSetting(self):
 		iTimerClass.StopTimer()
 		iTimerClass.startTimerSetting(True)
 
-	def OnDownload(self, conf, noForce = True):
+	def OnDownload(self,conf,noForce=True):
 		if conf:
 			if noForce:
-				WriteSave(self.jType, self.AutoTimer, self.Personal, self.NumberSat, self.name, self.Date, self.NumberDtt, self.DowDate, self.name)
-			self.iTimer1.start(100, True)
+				WriteSave(self.jType,self.AutoTimer,self.Personal,self.NumberSat,self.name,self.Date,self.NumberDtt,self.DowDate,self.name)
+			self.iTimer1.start(100,True)
 		else:
-			WriteSave(self.jType, self.AutoTimer, self.Personal, self.NumberSat, self.name, '0', self.NumberDtt, self.DowDate, self.name)
+			WriteSave(self.jType,self.AutoTimer,self.Personal,self.NumberSat,self.name,'0',self.NumberDtt,self.DowDate,self.name)
 		self.Info()
 
 	def keyUp(self):
@@ -346,17 +346,17 @@ class MenuGio(Screen):
 			self.MenuB()
 
 	def keyRightLeft(self):
-		self['A'].selectionEnabled(0)
-		self['B'].selectionEnabled(0)
+		self["A"].selectionEnabled(0)
+		self["B"].selectionEnabled(0)
 		if self.currentlist == 'A':
 			if not self.ServerOn:
 				return
 			self.currentlist = 'B'
-			self['B'].selectionEnabled(1)
+			self["B"].selectionEnabled(1)
 			self.MenuB()
 		else:
 			self.currentlist = 'A'
-			self['A'].selectionEnabled(1)
+			self["A"].selectionEnabled(1)
 
 
 class picons(Screen):
@@ -485,8 +485,8 @@ iTimerClass = GioppyGioSettings(jsession)
 
 def SessionStart(reason, **kwargs):
 	if reason == 0:
-		iTimerClass.gotSession(kwargs['session'])
-	jsession = kwargs['session']
+		iTimerClass.gotSession(kwargs["session"])
+	jsession = kwargs["session"]
 
 
 iTimerClass = GioppyGioSettings(jsession)
@@ -501,5 +501,7 @@ def Main(session, **kwargs):
 
 
 def Plugins(**kwargs):
-	return [PluginDescriptor(name='GioppyGio Panel v.2.2', description='Enigma2 Channel Settings and Picons v.2.2!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main), PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart), PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
+    return [PluginDescriptor(name='GioppyGio Panel v.2.3', description='Enigma2 Channel Settings and Picons v.2.3!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main),
+	    PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart),
+	    PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
 global giopath ## Warning: Unused global

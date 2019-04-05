@@ -1,1 +1,1 @@
-# gioppygio-settings-and-picons 2.2
+# gioppygio-settings-and-picons 2.3
