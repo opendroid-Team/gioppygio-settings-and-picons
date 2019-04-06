@@ -312,11 +312,11 @@ class MenuGio(Screen):
 			njData = 999999
 
 		if NameSat != self.name or Type != self.jType:
-			self.session.openWithCallback(self.OnDownload, MessageBox,_('\nList: %s\nDate: %s\nYour selection is ready to install,\nwant to continue ? \nThis make take a few seconds, please wait ...') % (self.name, self['B'].getCurrent()[0][2]), MessageBox.TYPE_YESNO, timeout = 20)
+			self.session.openWithCallback(self.OnDownload, MessageBox,_('The new configurations are saved\nSetting: %s\nDate: %s\nThe choice is different from the previous\nDo you want to proceed with the manual upgrade?') % (self.name, self['B'].getCurrent()[0][2]), MessageBox.TYPE_YESNO, timeout = 20)
 		elif njData > nData:
-			self.session.openWithCallback(self.OnDownload, MessageBox, _('\nList: %s\nDate: %s\nYour selection is ready to install,\nwant to continue ? \nThis make take a few seconds, please wait ...') % (self.name, self['B'].getCurrent()[0][2]), MessageBox.TYPE_YESNO, timeout = 20)
+			self.session.openWithCallback(self.OnDownload, MessageBox, _('The new configurations are saved\nSetting: %s\nDate: %s \n The new setting has a more recent date\nDo you want to proceed with the manual upgrade?') % (self.name, self['B'].getCurrent()[0][2]), MessageBox.TYPE_YESNO, timeout = 20)
 		else:
-			self.session.openWithCallback(self.OnDownloadForce, MessageBox, _('\nList: %s\nDate: %s\nYour selection is already installed,\nwant to continue ? \nThis make take a few seconds, please wait ...'), MessageBox.TYPE_YESNO, timeout = 20)
+			self.session.openWithCallback(self.OnDownloadForce, MessageBox, _('Setting already updated, you want to upgrade anyway?'), MessageBox.TYPE_YESNO, timeout = 20)
 
 	def OnDownloadForce(self,conf):
 		if conf:
