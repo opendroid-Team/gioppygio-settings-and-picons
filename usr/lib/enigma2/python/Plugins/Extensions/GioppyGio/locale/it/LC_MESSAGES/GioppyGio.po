@@ -2,7 +2,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Settings and picons\n"
 "POT-Creation-Date: 2018-03-14 20:42+0100\n"
-"PO-Revision-Date: 2019-04-06 23:19+0200\n"
+"PO-Revision-Date: 2019-04-07 21:22+0200\n"
 "Last-Translator: FULL NAME <FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."
 ">\n"
 "Language-Team: GioppyGio\n"
@@ -27,11 +27,10 @@ msgstr "Elenco installato:"
 msgid "Last Update: Never"
 msgstr "Ultimo aggiornamento: mai"
 
-#: Moduli/Select.py:188 plugin.py:250
-msgid "Last Update: "
-msgstr "Ultimo aggiornamento: "
-
-#: Moduli/Setting.py:558 Moduli/Setting.py:564
+# msgid "Last Update: "
+# msgstr "Ultimo aggiornamento: "
+#: Moduli/Select.py:188 plugin.py:250 Moduli/Setting.py:558
+#: Moduli/Setting.py:564
 msgid ""
 "Sorry! New release downloaded, restart enigma in order to make "
 "updating the setting."
@@ -95,11 +94,9 @@ msgstr "Aggiornamento automatico: No"
 msgid "Favourite:"
 msgstr "Preferiti:"
 
-#: plugin.py:252
-msgid "Auto Update:"
-msgstr "Aggiornamento automatico:"
-
-#: plugin.py:315
+# msgid "Auto Update:"
+# msgstr "Aggiornamento automatico:"
+#: plugin.py:252 plugin.py:315
 msgid "Server down for maintenance"
 msgstr "Server inattivo per manutenzione"
 
@@ -119,7 +116,7 @@ msgstr ""
 msgid ""
 "The new configurations are saved\n"
 "Setting: %s\n"
-"Date: %s \n"
+"Date: %s\n"
 " The new setting has a more recent date\n"
 "Do you want to proceed with the manual upgrade?"
 msgstr ""
@@ -165,4 +162,4 @@ msgstr ""
 #: plugin.py:510 plugin.py:516
 #, python-format
 msgid "downloading-installing: %s"
-msgstr "Installando: %s"
+msgstr "installando: %s"
