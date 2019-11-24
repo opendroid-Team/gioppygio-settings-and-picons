@@ -131,7 +131,7 @@ def TransferBouquetTerrestrialFinal():
 	def WritingTerrestrial():
 		try:
 			OpenBouquet = open('/etc/enigma2/userbouquet.SettingsDtt.tv', 'w')
-			OpenBouquet.write('#NAME CST\xae DTT\n')
+			OpenBouquet.write('')
 			OpenBouquet.close()
 			RewriteBouquet = open('/etc/enigma2/bouquets.tv').readlines()
 			WriteBouquet = open('/etc/enigma2/bouquets.tv', 'w')
@@ -155,7 +155,7 @@ def TransferBouquetTerrestrialFinal():
 			if re.search('^userbouquet.*.tv', file):
 				f = open('/etc/enigma2/' + file, 'r')
 				x = f.read()
-				if re.search('#NAME CST\xae DTT', x, flags=re.IGNORECASE):
+				if re.search('', x, flags=re.IGNORECASE):
 					return '/etc/enigma2/' + file
 
 		return WritingTerrestrial()
@@ -167,7 +167,7 @@ def TransferBouquetTerrestrialFinal():
 			TrasfBouq = open(DirectoryUserBouquetTerrestrial, 'w')
 			for Line in TerrestrialChannelListArchive:
 				if Line.lower().find('#name') != -1:
-					TrasfBouq.write('#NAME CST\xae DTT\n')
+					TrasfBouq.write('')
 				else:
 					TrasfBouq.write(Line)
 
@@ -241,7 +241,7 @@ def StartProcess(jLinkSat, jLinkDtt, Type, Personal):
 	def DownloadSettingAggDtt(jLinkDtt):
 		try:
 			req = urllib2.Request(jLinkDtt)
-			req.add_header('User-Agent', 'SatvenusSettings')
+			req.add_header('User-Agent', 'GippyGioSettings')
 			response = urllib2.urlopen(req)
 			link = response.read()
 			response.close()
