@@ -21,7 +21,6 @@ def TimerControl():
 	Date = str(now[2]).zfill(2) + '-' + str(now[1]).zfill(2) + '-' + str(now[0])
 	return '%s ora: %s' % (Date, Ora)
 
-
 def StartSavingTerrestrialChannels(lamedb, type):
 
 	def ForceSearchBouquetTerrestrial():

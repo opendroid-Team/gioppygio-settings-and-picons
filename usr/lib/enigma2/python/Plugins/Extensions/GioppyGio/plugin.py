@@ -1,14 +1,17 @@
 from Components.Label import Label
 from Components.ConfigList import ConfigListScreen, ConfigList
+from Components.Sources.List import List
 from Components.ActionMap import ActionMap
 from Components.MenuList import MenuList
 from Screens.Console import Console
 from Components.Pixmap import Pixmap
 from Plugins.Plugin import PluginDescriptor
+from Components.PluginList import PluginList
 from Screens.Screen import Screen
 from Screens.MessageBox import MessageBox
 from Components.MultiContent import MultiContentEntryText
 from enigma import *
+from Components.ActionMap import NumberActionMap
 from Components.ScrollLabel import ScrollLabel
 from Tools.BoundFunction import boundFunction
 from Components.Language import language
@@ -23,7 +26,13 @@ from Tools.LoadPixmap import LoadPixmap
 import xml.dom.minidom
 import pprint
 from xml.dom import Node, minidom
-#import requests
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, SCOPE_SKIN_IMAGE, fileExists, pathExists, createDir, SCOPE_PLUGINS
+from twisted.web.client import getPage, downloadPage
+import os
+from Components.Button import Button
+
+from Components.Task import Task, Job, job_manager as JobManager, Condition
+from Screens.TaskView import JobView
 from ServiceReference import ServiceReference
 import os, sys
 from os import listdir
@@ -39,6 +48,7 @@ plugin_path = '/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/'
 from enigma import addFont
 global giopath
 global Index
+global ipk
 plugin='[GioppyGio] '
 lang = language.getLanguage()
 environ["LANGUAGE"] = lang[:2]
@@ -65,33 +75,31 @@ else:
 	loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Skin/skinhd.xml")
 	giopath = '/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/'
 
-
 class MenuListGioB(MenuList):
 
-    def __init__(self, list, enableWrapAround = True):
-        MenuList.__init__(self, list, enableWrapAround, eListboxPythonMultiContent)
-        screenwidth = getDesktop(0).size().width()
-        if screenwidth and screenwidth == 1920:
-            self.l.setFont(0, gFont('Regular', 32))
-            self.l.setFont(1, gFont('Regular', 24))
-            self.l.setItemHeight(80)
-        else:
-            self.l.setFont(0, gFont('Regular', 20))
-            self.l.setFont(1, gFont('Regular', 14))
-            self.l.setItemHeight(50)
+	def __init__(self, list, enableWrapAround = True):
+		MenuList.__init__(self, list, enableWrapAround, eListboxPythonMultiContent)
+		screenwidth = getDesktop(0).size().width()
+		if screenwidth and screenwidth == 1920:
+			self.l.setFont(0, gFont('Regular', 32))
+			self.l.setFont(1, gFont('Regular', 24))
+			self.l.setItemHeight(80)
+		else:
+			self.l.setFont(0, gFont('Regular', 20))
+			self.l.setFont(1, gFont('Regular', 14))
+			self.l.setItemHeight(50)
 class MenuListGioA(MenuList):
-
-    def __init__(self, list, enableWrapAround = True):
-        MenuList.__init__(self, list, enableWrapAround, eListboxPythonMultiContent)
-        screenwidth = getDesktop(0).size().width()
-        if screenwidth and screenwidth == 1920:
-            self.l.setFont(0, gFont('Regular', 32))
-            self.l.setFont(1, gFont('Regular', 24))
-            self.l.setItemHeight(80)
-        else:
-            self.l.setFont(0, gFont('Regular', 20))
-            self.l.setFont(1, gFont('Regular', 14))
-            self.l.setItemHeight(50)
+	def __init__(self, list, enableWrapAround = True):
+		MenuList.__init__(self, list, enableWrapAround, eListboxPythonMultiContent)
+		screenwidth = getDesktop(0).size().width()
+		if screenwidth and screenwidth == 1920:
+			self.l.setFont(0, gFont('Regular', 32))
+			self.l.setFont(1, gFont('Regular', 24))
+			self.l.setItemHeight(80)
+		else:
+			self.l.setFont(0, gFont('Regular', 20))
+			self.l.setFont(1, gFont('Regular', 14))
+			self.l.setItemHeight(50)
 
 class MenuGio(Screen):
 
@@ -99,16 +107,16 @@ class MenuGio(Screen):
 		self.session = session
 		Screen.__init__(self, session)
 		self["actions"]  = ActionMap(["OkCancelActions", "ShortcutActions", "WizardActions", "ColorActions", "SetupActions", "NumberActions", "MenuActions", "HelpActions","EPGSelectActions"], { 
-                 "ok"    : self.keyOK,
-                 "up"    : self.keyUp,
-                 "down"  : self.keyDown,
-                 "blue"  : self.Auto,
-                 "yellow": self.Select,
-                 "cancel": self.exitplug,
-                 "left"  : self.keyRightLeft,
-                 "right" : self.keyRightLeft,
-                 "menu"  : self.keyMenu,
-                 "red"   : self.exitplug}, -1)
+		"ok"    : self.keyOK,
+		"up"    : self.keyUp,
+		"down"  : self.keyDown,
+		"blue"  : self.Auto,
+		"yellow": self.Select,
+		"cancel": self.exitplug,
+		"left"  : self.keyRightLeft,
+		"right" : self.keyRightLeft,
+		"menu"  : self.keyMenu,
+		"red"   : self.exitplug}, -1)
 		self['autotimer'] = Label("")
 		self['namesat'] = Label("")
 		self['text'] = Label("")
@@ -358,126 +366,570 @@ class MenuGio(Screen):
 			self.currentlist = 'A'
 			self["A"].selectionEnabled(1)
 
+class RSList(MenuList):
+	def __init__(self, list):
+		MenuList.__init__(self, list, True, eListboxPythonMultiContent)
+		try:
+			font = skin.fonts.get("RSList", ("Regular", 35, 50))
+			self.l.setFont(0, gFont(font[0], font[1]))
+			self.l.setItemHeight(font[2])
+		except:
+			self.l.setFont(0, gFont("Regular", 35))
+			self.l.setItemHeight(50)
 
-class picons(Screen):
+##############################################################################
 
-	screenwidth = getDesktop(0).size().width()
-	if screenwidth and screenwidth == 1920:
-		skin = '\n\t\t\t<screen name="picons" position="center,center" size="960,605" >\n\t\t\t\t<widget name="text" itemHeight="50" font="Regular;28" position="10,10" size="940,580" scrollbarMode="showOnDemand" transparent="1" />\n\t\t\t\t<widget name="info" position="10,540" size="940,50" font="Rale;32" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t<widget name="lab1" position="10,540" size="940,50" font="Rale;32" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t</screen>'
+def RSListEntry(download, state):
+	res = [(download)]
+	try:
+		x, y, w, h , x1, y1, w1, h1 = skin.parameters.get("RSList",(60, 0, 1920, 38, 5, 6, 38, 38))
+	except:
+		x = 50
+		y = 0
+		w = 820
+		h = 38
+		x1 = 8
+		y1 = 10
+		w1 = 38
+		h1 = 38
+	res.append(MultiContentEntryText(pos=(x, y), size=(w, h), font=0, text=download))
+	if state == 0:
+		res.append(MultiContentEntryPixmapAlphaTest(pos=(x1, y1), size=(w1,h1), png=LoadPixmap(cached=True, desktop=getDesktop(0), path=resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/buttons/button_green.png"))))
 	else:
-		skin = '\n\t\t\t<screen name="picons" position="center,center" size="560,405" >\n\t\t\t\t<widget name="text" position="10,10" size="540,280" scrollbarMode="showOnDemand" transparent="1" />\n\t\t\t\t<widget name="info" position="10,370" size="540,30" font="Rale;22" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t<widget name="lab1" position="10,370" size="540,30" font="Rale;22" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t</screen>'
+		res.append(MultiContentEntryPixmapAlphaTest(pos=(x1, y1), size=(w1,h1), png=LoadPixmap(cached=True, desktop=getDesktop(0), path=resolveFilename(SCOPE_SKIN_IMAGE, "skin_default/buttons/button_red.png"))))
 
+	print "res =", res
+	return res
 
+##############################################################################
+class picons(Screen):
+	skin = """
+		<screen name="picons" position="center,60" size="800,635" title="OPENDROID Addons Manager" >
+		<widget name="list" position="80,100" size="710,350" zPosition="2" scrollbarMode="showOnDemand" transparent="1"/>
+		<widget name="key_red" position="135,600" zPosition="1" size="180,45" font="Regular;18" foregroundColor="red" backgroundColor="red" transparent="1" />		
+		<widget name="key_green" position="400,600" zPosition="1" size="100,45" font="Regular;18" foregroundColor="green" backgroundColor="green" transparent="1" />
+		<widget name="key_yellow" position="675,600" zPosition="1" size="180,45" font="Regular;18" foregroundColor="yellow" backgroundColor="yellow" transparent="1" />
+		</screen>"""
 	def __init__(self, session):
 		Screen.__init__(self, session)
-		self.list = []
-		self['text'] = MenuList([])
-		self["info"] = Label()
+		self.list=[]
+		self.entrylist = []  #List reset
+		self.entrylist.append((_("Picons-7.0-OVEST-HDD"), "7.0-OVEST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-7.0-OVEST-USB"), "7.0-OVEST-USB", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-0.8-OVEST-HDD"), "0.8-OVEST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-0.8-OVEST-USB"), "0.8-OVEST-USB", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-5.0-Ovest-HDD"), "5.0-Ovest-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-5.0-Ovest-USB"), "5.0-Ovest-USB", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-30.0-Ovest-HDD"), "30.0-Ovest-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-30.0-Ovest-USB"), "30.0-Ovest-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-4.8-EST-HDD"), "4.8-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-4.8-EST-USB"), "4.8-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-39-EST-HDD"), "39-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-39-EST-USB"), "39-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-23.5-EST-HDD"), "23.5-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-23.5-EST-USB"), "23.5-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-7.0-EST-HDD"), "7.0-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-7.0-EST-USB"), "7.0-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-9.0-EST-HDD"), "9.0-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-9.0-EST-USB"), "9.0-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-26-EST-HDD"), "26-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-26-EST-USB"), "26-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-28.2-EST-HDD"), "28.2-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-28.2-EST-USB"), "28.2-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-13-EST-HDD"), "13-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-13-EST-USB"), "13-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-16-EST-HDD"), "16-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-16-EST-USB"), "16-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-19-EST-HDD"), "19-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-19-EST-USB"), "19-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-21.6-EST-HDD"), "21.6-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-21.6-EST-USB"), "21.6-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-31.5-EST-HDD"), "31.5-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-31.5-EST-USB"), "31.5-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-42.0-EST-HDD"), "42.0-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-42.0-EST-USB"), "42.0-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self['list'] = PluginList(self.list)
+		self["key_red"] = Label(_("Exit"))
+		self["key_green"] = Label(_("Remove"))
+		self["key_yellow"] = Label(_("Restart E2"))
 		self['lab1'] = Label(_("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to continue"))
-		self.addon = "Picons"
-		self.icount = 0
-		self.downloading=False
-		self.mount=True
-		Screen.__init__(self, session)
-		self['pixmap'] = Pixmap()
-		self['actions'] = ActionMap([
-                'OkCancelActions', 'ColorActions', 'DirectionActions'], 
-                   {'ok': self.okClicked,
-                    'cancel': self.close,
-                    'red': self.close }, -1)
-		self['Key_Red'] = Label(_('Exit'))
-		self["info"].setText("Connetting to\nAddons server...please wait")
-		self.timer = eTimer()
-		self.timer.callback.append(self.load)
-		self.timer.start(200, 3)
-	def load(self):
-		xurl = "http://gioppygio.net/XML/Picons.xml"
-		print "xurl =", xurl
-		xdest = "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Picons.xml"
-		print "xdest =", xdest
-		try:
-			xlist = urllib.urlretrieve(xurl, xdest)
-			myfile = file(r"/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Picons.xml")
-			self.data = []
-			self.names = []
-			icount = 0
-			list = []
-			xmlparse = xml.dom.minidom.parse(myfile)
-			self.xmlparse=xmlparse
-			for plugins in xmlparse.getElementsByTagName("plugins"):
-				self.names.append(plugins.getAttribute("cont").encode("utf8"))
-				self["actions"] = ActionMap(["OkCancelActions"], {"ok": self.okClicked, "cancel": self.close}, -1)        
-				self.list=list
-				self["info"].setText("")
-				self["text"].setList(self.names)
-				self.mount=True
-#				self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to continue")
-				self.downloading=True
-		except:
-			self.downloading=False
-			self["info"].setText("Addons Download Failure,please check internet connection !")
-
-	def setWindowTitle(self):
-		self.setTitle(_("Dowanloding"))
-		self.session.openWithCallback(self.callMyMsg, MessageBox, _("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to continue"), MessageBox.TYPE_YESNO)
-	def okClicked(self):
-		selection = str(self["text"].getCurrent())
-		self.session.open(SelectCountry, self.xmlparse, selection)
-
-class SelectCountry(Screen):
-
-	screenwidth = getDesktop(0).size().width()
-	if screenwidth and screenwidth == 1920:
-         skin = '\n\t\t\t<screen name="SelectCountry" position="center,center" size="960,605" >\n\t\t\t\t<widget name="countrymenu" itemHeight="50" font="Regular;28" position="10,10" size="940,580" scrollbarMode="showOnDemand" transparent="1" />\n\t\t\t\t<widget name="info" position="10,540" size="940,50" font="Rale;32" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t</screen>'
-	else:
-		skin = '\n\t\t\t<screen name="SelectCountry" position="center,center" size="560,405" >\n\t\t\t\t<widget name="countrymenu" position="10,10" size="540,280" scrollbarMode="showOnDemand" transparent="1" />\n\t\t\t\t<widget name="info" position="10,370" size="540,30" font="Rale;22" valign="center" noWrap="1" backgroundColor="#333f3f3f" foregroundColor="#FFC000" shadowOffset="-2,-2" shadowColor="black" />\n\t\t\t</screen>'
-
-	def __init__(self, session, xmlparse, selection):
-		Screen.__init__(self,session)
-		self['pixmap'] = Pixmap()
-		self["info"] = Label(_("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install."))
-		self['actions'] = ActionMap(['OkCancelActions', 'ColorActions', 'DirectionActions'], 
-                     {'ok': self.selCountry,
-                      'cancel': self.close,
-                      'red': self.close }, -1)
-		self['Key_Red'] = Label(_('Exit'))
-#		self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install.")
-		self.xmlparse = xmlparse
-		self.selection = selection
-		list = []
-		for plugins in self.xmlparse.getElementsByTagName("plugins"):
-			if str(plugins.getAttribute("cont").encode("utf8")) == self.selection:
-				for plugin in plugins.getElementsByTagName("plugin"):
-					list.append(plugin.getAttribute("name").encode("utf8"))
-				list.sort()
-		self["countrymenu"] = MenuList(list)
-
-	def selCountry(self):
-		selection_country = self["countrymenu"].getCurrent()
-		for plugins in self.xmlparse.getElementsByTagName("plugins"):
-			if str(plugins.getAttribute("cont").encode("utf8")) == self.selection:
-				for plugin in plugins.getElementsByTagName("plugin"):  
-					if plugin.getAttribute("name").encode("utf8") == selection_country:
-						urlserver = str(plugin.getElementsByTagName("url")[0].childNodes[0].data)
-						pluginname = plugin.getAttribute("name").encode("utf8")     
-						self.prombt(urlserver,pluginname)
-
-	def prombt(self, com,dom):
-		self.com=com
-		self.dom=dom
-		if self.selection=="Picons":
-#			self["info"].setText("It is recommended !!\nto mount the appropriate device before downloading")
-			self.session.openWithCallback(self.callMyMsg, MessageBox, _("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to install."), MessageBox.TYPE_YESNO)
+		self['actions'] = ActionMap(['WizardActions','ColorActions'],
+		{
+			'ok': self.KeyOk,
+			"red": self.close,
+			'back': self.close,
+			'green': self.Remove,
+			'yellow' : self.RestartE2,
+			
+		})
+		self.onLayoutFinish.append(self.updateList)
+		
+	
+	def Remove(self):
+		self.session.open(AddonsRemove)
+	def RestartE2(self):
+		msg="Do you want Restart GUI now ?" 
+		self.session.openWithCallback(self.Finish, MessageBox, msg, MessageBox.TYPE_YESNO)
+	def Finish(self, answer):
+		if answer is True:
+			self.session.open(TryQuitMainloop, 3)
 		else:
-			self.session.open(Console,_("downloading-installing: %s") % (dom), ["opkg install -force-overwrite %s" % com])
+			self.close()
+	def KeyOk(self):
+		selection = self["list"].getCurrent()[0][1]
+		print selection
+		if (selection == "5.0-Ovest-HDD"):
+			addons = 'Picons-5.0-Ovest-HDD'
+			self.title = 'Picons GioppyGio Downloader 5.0-Ovest-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "5.0-Ovest-USB"):
+			addons = 'Picons-5.0-Ovest-USB'
+			self.title = 'Picons GioppyGio Downloader 5.0-Ovest-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "7.0-OVEST-HDD"):
+			addons = 'Picons-7.0-OVEST-HDD'
+			self.title = 'Picons GioppyGio Downloader 7.0-OVEST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "7.0-OVEST-USB"):
+			addons = 'Picons-7.0-OVEST-USB'
+			self.title = 'Picons GioppyGio Downloader 7.0-OVEST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "0.8-OVEST-HDD"):
+			addons = 'Picons-0.8-OVEST-HDD'
+			self.title = 'Picons GioppyGio Downloader 0.8-OVEST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "0.8-OVEST-USB"):
+			addons = 'Picons-0.8-OVEST-USB'
+			self.title = 'Picons GioppyGio Downloader 0.8-OVEST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "4.8-EST-HDD"):
+			addons = 'Picons-4.8-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 4.8-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "4.8-EST-USB"):
+			addons = 'Picons-4.8-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 4.8-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "39-EST-HDD"):
+			addons = 'Picons-39-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 39-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "39-EST-USB"):
+			addons = 'Picons-39-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 39-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "23.5-EST-HDD"):
+			addons = 'Picons-23.5-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 39-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "23.5-EST-USB"):
+			addons = 'Picons-23.5-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 23.5-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "7.0-EST-HDD"):
+			addons = 'Picons-7.0-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 7.0-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "7.0-EST-USB"):
+			addons = 'Picons-7.0-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 7.0-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "9.0-EST-HDD"):
+			addons = 'Picons-9.0-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 9.0-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "9.0-EST-USB"):
+			addons = 'Picons-9.0-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 9.0-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "16-EST-HDD"):
+			addons = 'Picons-16-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 16-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "16-EST-USB"):
+			addons = 'Picons-16-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 16-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "26-EST-HDD"):
+			addons = 'Picons-26-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 26-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "26-EST-USB"):
+			addons = 'Picons-26-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 26-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "28.2-EST-HDD"):
+			addons = 'Picons-28.2-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 28.2-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "28.2-EST-USB"):
+			addons = 'Picons-28.2-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 28.2-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "13-EST-HDD"):
+			addons = 'Picons-13-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 13-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "13-EST-USB"):
+			addons = 'Picons-13-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 13-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "19-EST-HDD"):
+			addons = 'Picons-19-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 19-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "19-EST-USB"):
+			addons = 'Picons-19-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 19-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "31.5-EST-HDD"):
+			addons = 'Picons-31.5-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 31.5-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "31.5-EST-USB"):
+			addons = 'Picons-31.5-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 31.5-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "42.0-EST-HDD"):
+			addons = 'Picons-42.0-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 42.0-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "42.0-EST-USB"):
+			addons = 'Picons-42.0-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 42.0-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "21.6-EST-HDD"):
+			addons = 'Picons-21.6-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 21.0-EST-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "21.6-EST-USB"):
+			addons = 'Picons-21.6-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 21.0-EST-USB'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "30.0-Ovest-HDD"):
+			addons = 'Picons-30.0-Ovest-HDD'
+			self.title = 'Picons GioppyGio Downloader 30.0-Ovest-HDD'
+			self.session.open(ipklist, addons, self.title)
+		elif (selection == "30.0-Ovest-USB"):
+			addons = 'Picons-30.0-Ovest-USB'
+			self.title = 'Picons GioppyGio Downloader 30.0-Ovest-USB'
+			self.session.open(ipklist, addons, self.title)
+		else:
+			self.messpopup("Selection error")
 
-	def callMyMsg(self, result):
-		if result:
-			dom=self.dom
-			com=self.com
-			self.session.open(Console,_("downloading-installing: %s") % (dom), ["ipkg install -force-overwrite %s" % com])
-	def close_session(self):
+	def messpopup(self,msg):
+		self.session.open(MessageBox, msg , MessageBox.TYPE_INFO)
+	
+	def updateList(self):
+		for i in self.entrylist:
+				res = [i]
+				res.append(MultiContentEntryText(pos=(60, 5), size=(1100, 48), font=0, text=i[0]))
+				picture=LoadPixmap(resolveFilename(SCOPE_CURRENT_SKIN, i[2]))
+				res.append(MultiContentEntryPixmapAlphaTest(pos=(5, 1), size=(48, 48), png=picture))
+				self.list.append(res)
+		self['list'].l.setList(self.list)
+
+class ipklist(Screen):
+
+
+	skin = """
+		<screen position="center,center" size="800,500" title=" " >
+			<widget name="text" position="100,20" size="200,30" font="Regular;20" halign="left" />
+			<ePixmap position="300,25"   zPosition="2" size="140,40" pixmap="skin_default/buttons/button_red.png" transparent="1" alphatest="on" />
+			<widget name="list" position="50,80" size="730,300" scrollbarMode="showOnDemand" />
+
+			<ePixmap name="red"    position="0,460"   zPosition="2" size="140,40" pixmap="skin_default/buttons/button_red.png" transparent="1" alphatest="on" />
+			<ePixmap name="green"  position="140,460" zPosition="2" size="140,40" pixmap="skin_default/buttons/button_green.png" transparent="1" alphatest="on" />
+
+			<widget name="key_red" position="0,450" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="#ffffff" font="Regular;20" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" /> 
+			<widget name="key_green" position="140,450" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="#ffffff" font="Regular;20" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" /> 
+
+			<eLabel position="70,100" zPosition="-1" size="100,69" backgroundColor="#222222" />
+			<widget name="info" position="100,230" zPosition="4" size="300,25" font="Regular;18" foregroundColor="#ffffff" transparent="1" halign="center" valign="center" />
+		</screen>"""
+
+	def __init__(self, session, addons, title):
+
+		self.skin = ipklist.skin
+		Screen.__init__(self, session)
+
+		self.list = []
+		self["text"] = Label()
+		self["list"] = List(self.list)
+		self["list"] = RSList([])
+		self['lab1'] = Label(_("It is recommended !!\nto mount the appropriate device before downloading.\nOtherwise\nPress OK to continue"))
+		self["info"] = Label()
+		self["actions"] = NumberActionMap(["WizardActions", "InputActions", "ColorActions", "DirectionActions"], 
+		{
+			"ok": self.okClicked,
+			"back": self.close,
+			"red": self.close,
+			"green": self.okClicked,
+		}, -1)
+		self["key_red"] = Button(_("Cancel"))
+		self["key_green"] = Button(_("Select"))
+		self.mytitle = title
+		self.addon = addons
+		self["title"] = Button(title)
+		self.icount = 0
+		self.names = []
+		self.onLayoutFinish.append(self.openTest)
+
+	def openTest(self):
+		self["info"].setText("Downloading list...")
+		testno = 1
+
+		xurl = 'http://images.opendroid.org/Addons/Picons/'+ self.addon + '/list'
+		print "xurl =", xurl
+		getPage(xurl).addCallback(self.gotPage).addErrback(self.getfeedError)
+
+	def gotPage(self, html):
+		print "html = ", html 
+		self.data = []
+		icount = 0
+		self.data = html.splitlines()
+		list = []
+		for line in self.data:
+			ipkname = self.data[icount] 
+			print "gotPage icount, ipk name =", icount, ipkname 
+			remname = ipkname
+			state = self.getstate(ipkname)
+			print "gotPage state, remname = ", state, remname
+			list.append(RSListEntry(remname, state))
+			icount = icount+1
+			self["list"].setList(list)
+			print 'self["list"] A =', self["list"] 
+			self["info"].setText("")
+
+	def getfeedError(self, error=""):
+		error = str(error)
+		print "Download error =", error
+
+
+	def getstate(self, ipkname):
+		item = "/etc/ipkinst/" + ipkname
+		if os.path.exists(item):
+			state = 1
+			return state
+		else:
+			state = 0
+			return state
+
+	def okClicked(self):
+		print "Here in okClicked A"
+		sel = self["list"].getSelectionIndex()
+		ipk = self.data[sel]
+		addon = self.addon
+		ipkinst = Getipk(self.session, ipk, addon)
+		ipkinst.openTest()
+
+	def keyLeft(self):
+		self["text"].left()
+	
+	def keyRight(self):
+		self["text"].right()
+	
+	def keyNumberGlobal(self, number):
+		print "pressed", number
+		self["text"].number(number)
+
+class Getipk(Screen):
+	skin = """
+		<screen position="center,center" size="800,500" title="Play Options" >
+			<!--widget name="text" position="0,0" size="550,25" font="Regular;20" /-->
+			<widget name="list" position="10,20" size="750,350" scrollbarMode="showOnDemand" />
+			<!--widget name="pixmap" position="200,0" size="190,250" /-->
+			<eLabel position="70,100" zPosition="-1" size="100,69" backgroundColor="#222222" />
+			<widget name="info" position="50,50" zPosition="4" size="500,400" font="Regular;22" foregroundColor="#ffffff" transparent="1" halign="left" valign="top" />
+			<ePixmap name="red"    position="0,450"   zPosition="2" size="140,40" pixmap="skin_default/buttons/red.png" transparent="1" alphatest="on" />
+			<ePixmap name="green"  position="140,450" zPosition="2" size="140,40" pixmap="skin_default/buttons/green.png" transparent="1" alphatest="on" />
+			<ePixmap name="yellow" position="280,450" zPosition="2" size="140,40" pixmap="skin_default/buttons/yellow.png" transparent="1" alphatest="on" /> 
+			<!--ePixmap name="blue"   position="420,450" zPosition="2" size="140,40" pixmap="skin_default/buttons/blue.png" transparent="1" alphatest="on" /--> 
+			<widget name="key_red" position="0,450" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="#ffffff" font="Regular;20" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" /> 
+			<widget name="key_green" position="140,450" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="#ffffff" font="Regular;20" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" /> 
+			<!--widget name="key_yellow" position="280,450" size="140,40" valign="center" halign="center" zPosition="4"  foregroundColor="#ffffff" font="Regular;20" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" />
+			<widget name="key_blue" position="420,450" size="140,50" valign="center" halign="center" zPosition="4"  foregroundColor="#ffffff" font="Regular;20" transparent="1" shadowColor="#25062748" shadowOffset="-2,-2" /-->
+		</screen>"""
+ 
+	def __init__(self, session, ipk, addon):
+		Screen.__init__(self, session)
+		self.skin = Getipk.skin
+		title = "Addon Install"
+		self.setTitle(title)
+		self["list"] = MenuList([])
+		self["info"] = Label()
+		self["key_red"] = Button(_("Exit"))
+		self["key_green"] = Button(_("Install"))
+		self["setupActions"] = ActionMap(["SetupActions", "ColorActions", "TimerEditActions"],
+		{
+			"red": self.close,
+			"green": self.okClicked,
+			"yellow": self.install,
+			"cancel": self.cancel,
+			"ok": self.close,
+		}, -2)
+		print "Getipk : ipk =", ipk
+		self.icount = 0
+		self.ipk = ipk
+		self.addon = addon
+		self.onLayoutFinish.append(self.openTest)
+		txt = "You have selected\n\n" + ipk + "\n\n\nPlease press Download"
+		self["info"].setText(txt)
+		self.srefOld = self.session.nav.getCurrentlyPlayingServiceReference()
+		self.onLayoutFinish.append(self.openTest)
+	def openTest(self):
+		if not os.path.exists("/etc/ipkinst"): 
+			cmd = "mkdir -p /etc/ipkinst"
+			os.system(cmd)
+		xurl1 = 'http://images.opendroid.org/Addons/Picons/' + self.addon + '/'      
+		print "xurl1 =", xurl1
+		xurl2 = xurl1 + self.ipk
+		print "xurl2 =", xurl2
+		xdest = "/tmp/" + self.ipk
+		print "xdest =", xdest
+		self.cmd1 = 'wget -O "' + xdest + '" "' + xurl2 + '"'
+		self.cmd2 = "opkg install --force-overwrite /tmp/" + self.ipk
+		self.cmd3 = "touch /etc/ipkinst/" + self.ipk + " &"
+		self.okClicked()    
+	def okClicked(self):
+		plug = self.ipk
+		title = _("Installing addon %s" %(plug))
+		cmd = self.cmd1 + " && " + self.cmd2 + " && " + self.cmd3
+		self.session.open(Console,_(title),[cmd])
+	def LastJobView(self):
+		currentjob = None
+		for job in JobManager.getPendingJobs():
+			currentjob = job
+
+		if currentjob is not None:
+			self.session.open(JobView, currentjob)
+ 
+	def install(self):
+		cmd = "opkg install --force-overwrite /tmp/" + self.ipk + ">/tmp/ipk.log"
+		print "cmd =", cmd
+		title = _("Installing addon %s" %(plug))
+		self.session.open(Console,_(title),[cmd])
+		self.endinstall()
+
+	def viewLog(self):
+		self["info"].setText("\n\n\n\n\n\n\n\n\n\n\n\n\n\n\n       Press Exit to continue...")
+		if os.path.isfile("/tmp/ipk.log")is not True :
+			cmd = "touch /tmp/ipk.log"
+			os.system(cmd)
+		else:	
+			myfile = file(r"/tmp/ipk.log")
+			icount = 0
+			data = []
+			for line in myfile.readlines():
+				data.append(icount)
+				print line
+				num = len(line)
+				data[icount] = (line[:-1])
+				print data[icount]
+				icount = icount + 1
+			self["list"].setList(data)
+			self.endinstall()
+
+	def endinstall(self):
+		path="/tmp"
+		tmplist = []
+		ipkname = 0  
+		tmplist=os.listdir(path)
+		print "files in /tmp", tmplist
+		icount = 0
+		for name in tmplist:
+			nipk = tmplist[icount]
+			if (nipk[-3:]=="ipk"):
+				ipkname = nipk
+			icount = icount+1       
+
+		if ipkname != 0:
+			print "endinstall ipk name =", ipkname 
+			ipos = ipkname.find("_")
+			remname = ipkname[:ipos]
+			print "endinstall remname =", remname
+			f=open('/etc/ipklist_installed', 'a')
+			f1= remname + "\n"
+			f.write(f1)
+			cmd = "rm /tmp/*.ipk"
+			os.system(cmd)
+
+	def cancel(self):
 		self.close()
+
+	def keyLeft(self):
+		self["text"].left()
+	
+	def keyRight(self):
+		self["text"].right()
+
+	def keyNumberGlobal(self, number):
+		print "pressed", number
+		self["text"].number(number)        
+ 
+class downloadJob(Job):
+	def __init__(self, toolbox, cmdline, filename, filetitle):
+		Job.__init__(self, _("Downloading"))
+		self.toolbox = toolbox
+		self.retrycount = 0
+		
+		downloadTask(self, cmdline, filename, filetitle)
+
+	def retry(self):
+		assert self.status == self.FAILED
+		self.retrycount += 1
+		self.restart()
+	
+class downloadTask(Task):
+	ERROR_CORRUPT_FILE, ERROR_RTMP_ReadPacket, ERROR_SEGFAULT, ERROR_SERVER, ERROR_UNKNOWN = range(5)
+	def __init__(self, job, cmdline, filename, filetitle):
+		Task.__init__(self, job, filetitle)
+		self.setCmdline(cmdline)
+		self.filename = filename
+		self.toolbox = job.toolbox
+		self.error = None
+		self.lasterrormsg = None
+		
+	def processOutput(self, data):
+		try:
+			if data.endswith('%)'):
+				startpos = data.rfind("sec (")+5
+				if startpos and startpos != -1:
+					self.progress = int(float(data[startpos:-4]))
+			elif data.find('%') != -1:
+				tmpvalue = data[:data.find("%")]
+				tmpvalue = tmpvalue[tmpvalue.rfind(" "):].strip()
+				tmpvalue = tmpvalue[tmpvalue.rfind("(")+1:].strip()
+				self.progress = int(float(tmpvalue))
+			else:
+				Task.processOutput(self, data)
+		except Exception, errormsg:
+			print "Error processOutput: " + str(errormsg)
+			Task.processOutput(self, data)
+
+	def processOutputLine(self, line):
+			self.error = self.ERROR_SERVER
+			
+	def afterRun(self):
+		pass
+
+class downloadTaskPostcondition(Condition):
+	RECOVERABLE = True
+	def check(self, task):
+		if task.returncode == 0 or task.error is None:
+			return True
+		else:
+			return False
+
+	def getErrorMessage(self, task):
+		return {
+			task.ERROR_CORRUPT_FILE: _("Video Download Failed!Corrupted Download File:%s" % task.lasterrormsg),
+			task.ERROR_RTMP_ReadPacket: _("Video Download Failed!Could not read RTMP-Packet:%s" % task.lasterrormsg),
+			task.ERROR_SEGFAULT: _("Video Download Failed!Segmentation fault:%s" % task.lasterrormsg),
+			task.ERROR_SERVER: _("Download Failed!-Server error:"),
+			task.ERROR_UNKNOWN: _("Download Failed!Unknown Error:%s" % task.lasterrormsg)
+		}[task.error]
+
 
 
 jsession = None
@@ -501,7 +953,7 @@ def Main(session, **kwargs):
 
 
 def Plugins(**kwargs):
-    return [PluginDescriptor(name='GioppyGio Panel v.2.3', description='Enigma2 Channel Settings and Picons v.2.3!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main),
-	    PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart),
-	    PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
-global giopath ## Warning: Unused global
+	return  [PluginDescriptor(name='GioppyGio Panel v.2.3', description='Enigma2 Channel Settings and Picons v.2.3!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main),
+		PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart),
+		PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
+	global giopath
