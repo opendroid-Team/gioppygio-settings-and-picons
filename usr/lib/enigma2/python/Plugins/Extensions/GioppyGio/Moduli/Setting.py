@@ -11,7 +11,7 @@ try:
 	import zipfile
 except:
 	pass
-Version='2.3'
+Version='7.0'
 Directory = os.path.dirname(sys.modules[__name__].__file__)
 MinStart = int(choice(range(59)))
 

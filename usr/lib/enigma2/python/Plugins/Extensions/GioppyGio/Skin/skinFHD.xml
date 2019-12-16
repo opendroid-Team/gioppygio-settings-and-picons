@@ -28,7 +28,7 @@
   <eLabel name="" position="382,880" size="890,2" zPosition="2" backgroundColor="#00003366" />
   </screen>
 <!-- picons FHD -->
-  <screen name="picons" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.2.3 ::..">
+  <screen name="picons" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.7.0 ::..">
   <ePixmap pixmap="/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/bg1280.png" position="0,0" zPosition="-20" size="1920,1080" />
   <eLabel name="vertikalline" position="370,120" size="2,740" foregroundColor="#00003366" backgroundColor="#00003366" />
 <eLabel text="Creator:Panel-BY-OPDteam-https://droidsat.org" position="200,1005" size="1210,65" zPosition="8" halign="left" font="Regular; 52" backgroundColor="#00000000" transparent="1" foregroundColor="#0000deff" />
@@ -54,7 +54,7 @@
   </widget>
   </screen>
 <!-- ipklist -->
-  <screen name="ipklist" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.2.3 ::..">
+  <screen name="ipklist" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.7.0 ::..">
    <widget name="text" position="382,100" size="890,870" itemHeight="50" font="Regular; 34" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" zPosition="20" foregroundColor="#00cccccc" foregroundColorSelected="#00ffffff" backgroundColor="#00000000" backgroundColorSelected="#00003366" />
   <widget name="list" position="382,100" size="890,870" itemHeight="50" font="Regular; 34" scrollbarMode="showOnDemand" enableWrapAround="1" transparent="1" zPosition="20" foregroundColor="#00cccccc" foregroundColorSelected="#00ffffff" backgroundColor="#00000000" backgroundColorSelected="#00003366" />
   <widget name="info" position="20,900" zPosition="11" size="350,400" font="Regular;30" foregroundColor="#ff0000" transparent="1" halign="center" valign="center" />
@@ -71,7 +71,7 @@
   </widget>
 </screen>
 <!-- Getipk-->
-  <screen name="Getipk" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.2.3 ::..">
+  <screen name="Getipk" position="0,0" size="1920,1080" flags="wfNoBorder" backgroundColor="#41000000" title="..:: GioppyGio picons v.7.0 ::..">
   <widget name="text" position="380,100" size="900,840" zPosition="2" itemHeight="50" font="Regular; 31" borderColor="#" borderWidth="1" foregroundColor="#00ffffff" foregroundColorSelected="#0050bbff" backgroundColor="#00000000" backgroundColorSelected="#00003366" transparent="1" />
 <widget name="list" position="380,100" size="900,840" zPosition="2" itemHeight="50" font="Regular; 31" borderColor="#" borderWidth="1" foregroundColor="#00ffffff" foregroundColorSelected="#0050bbff" backgroundColor="#00000000" backgroundColorSelected="#00003366" transparent="1" />
   <widget name="info" position="20,40" zPosition="11" size="350,400" font="Regular;30" foregroundColor="#ff0000" transparent="1" halign="center" valign="center" />

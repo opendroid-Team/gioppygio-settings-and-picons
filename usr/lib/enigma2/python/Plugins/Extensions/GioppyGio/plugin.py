@@ -953,7 +953,7 @@ def Main(session, **kwargs):
 
 
 def Plugins(**kwargs):
-	return  [PluginDescriptor(name='GioppyGio Panel v.2.3', description='Enigma2 Channel Settings and Picons v.2.3!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main),
+	return  [PluginDescriptor(name='GioppyGio Panel v.7.0', description='Enigma2 Channel Settings and Picons v.7.0!', icon='/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/plugin.png', where=[PluginDescriptor.WHERE_EXTENSIONSMENU, PluginDescriptor.WHERE_PLUGINMENU], fnc=Main),
 		PluginDescriptor(where=PluginDescriptor.WHERE_SESSIONSTART, fnc=SessionStart),
 		PluginDescriptor(where=PluginDescriptor.WHERE_AUTOSTART, fnc=AutoStart)]
 	global giopath
