@@ -414,40 +414,39 @@ class picons(Screen):
 		Screen.__init__(self, session)
 		self.list=[]
 		self.entrylist = []  #List reset
-		self.entrylist.append((_("Picons-7.0-OVEST-HDD"), "7.0-OVEST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-7.0-OVEST-USB"), "7.0-OVEST-USB", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-0.8-OVEST-HDD"), "0.8-OVEST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-0.8-OVEST-USB"), "0.8-OVEST-USB", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-5.0-Ovest-HDD"), "5.0-Ovest-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-5.0-Ovest-USB"), "5.0-Ovest-USB", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-30.0-Ovest-HDD"), "30.0-Ovest-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-30.0-Ovest-USB"), "30.0-Ovest-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-4.8-EST-HDD"), "4.8-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-4.8-EST-USB"), "4.8-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-39-EST-HDD"), "39-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-39-EST-USB"), "39-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-23.5-EST-HDD"), "23.5-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-23.5-EST-USB"), "23.5-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-7.0-EST-HDD"), "7.0-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-7.0-EST-USB"), "7.0-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-9.0-EST-HDD"), "9.0-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-9.0-EST-USB"), "9.0-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-26-EST-HDD"), "26-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-26-EST-USB"), "26-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-28.2-EST-HDD"), "28.2-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-28.2-EST-USB"), "28.2-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-13-EST-HDD"), "13-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-13-EST-USB"), "13-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-16-EST-HDD"), "16-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-16-EST-USB"), "16-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-19-EST-HDD"), "19-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-19-EST-USB"), "19-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-21.6-EST-HDD"), "21.6-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-21.6-EST-USB"), "21.6-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-31.5-EST-HDD"), "31.5-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-31.5-EST-USB"), "31.5-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
-		self.entrylist.append((_("Picons-42.0-EST-HDD"), "42.0-EST-HDD", "/usr/lib/enigma2/python/OPENDROID/icons/Picons-HDD.png"))
-		self.entrylist.append((_("Picons-42.0-EST-USB"), "42.0-EST-USB","/usr/lib/enigma2/python/OPENDROID/icons/Picons-USB.png"))
+		self.entrylist.append((_("Picons-4.8-EST-HDD-White&Black"), "4.8-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-4.8-EST-USB-White&Black"), "4.8-EST-USB", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-7.0-EST-HDD-White&Black"), "7.0-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-7.0-EST-USB-White&Black"), "7.0-EST-USB", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-9.0-EST-HDD-White&Black"), "9.0-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-9.0-EST-USB-White&Black"), "9.0-EST-USB", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-13.0-EST-HDD-White&Black"), "13.0-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-13.0-EST-USB-White&Black"), "13.0-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-16.0-EST-HDD-White&Black"), "16.0-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-16.0-EST-USB-White&Black"), "16.0-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-19.2-EST-HDD-White&Black"), "19.2-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-19.2-EST-USB-White&Black"), "19.2-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-23.5-EST-HDD-White&Black"), "23.5-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-23.5-EST-USB-White&Black"), "23.5-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-26.0-EST-HDD-White&Black"), "26.0-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-26.0-EST-USB-White&Black"), "26.0-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-28.2-EST-HDD-White&Black"), "28.2-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-28.2-EST-USB-White&Black"), "28.2-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-31.5-EST-HDD-White&Black"), "31.5-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-31.5-EST-USB-White&Black"), "31.5-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-39-EST-HDD-White&Black"), "39-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-39-EST-USB-White&Black"), "39-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-42.0-EST-HDD-White&Black"), "42.0-EST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-42.0-EST-USB-White&Black"), "42.0-EST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-0.8-OVEST-HDD-White&Black"), "0.8-OVEST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-0.8-OVEST-USB-White&Black"), "0.8-OVEST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-5.0-OVEST-HDD-White&Black"), "5.0-OVEST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-5.0-OVEST-USB-White&Black"), "5.0-OVEST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-7.0-OVEST-HDD-White&Black"), "7.0-OVEST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-7.0-OVEST-USB-White&Black"), "7.0-OVEST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-30.0-OVEST-HDD-White&Black"), "30.0-OVEST-HDD", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
+		self.entrylist.append((_("Picons-30.0-OVEST-USB-White&Black"), "30.0-OVEST-USB","/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-USB.png"))
+		self.entrylist.append((_("Picons-DTT-HDD-USB-White&Black"), "DTT-HDD-USB", "/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/Picons-HDD.png"))
 		self['list'] = PluginList(self.list)
 		self["key_red"] = Label(_("Exit"))
 		self["key_green"] = Label(_("Remove"))
@@ -478,13 +477,13 @@ class picons(Screen):
 	def KeyOk(self):
 		selection = self["list"].getCurrent()[0][1]
 		print selection
-		if (selection == "5.0-Ovest-HDD"):
-			addons = 'Picons-5.0-Ovest-HDD'
-			self.title = 'Picons GioppyGio Downloader 5.0-Ovest-HDD'
+		if (selection == "5.0-OVEST-HDD"):
+			addons = 'Picons-5.0-OVEST-HDD'
+			self.title = 'Picons GioppyGio Downloader 5.0-OVEST-HDD'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "5.0-Ovest-USB"):
-			addons = 'Picons-5.0-Ovest-USB'
-			self.title = 'Picons GioppyGio Downloader 5.0-Ovest-USB'
+		elif (selection == "5.0-OVEST-USB"):
+			addons = 'Picons-5.0-OVEST-USB'
+			self.title = 'Picons GioppyGio Downloader 5.0-OVEST-USB'
 			self.session.open(ipklist, addons, self.title)
 		elif (selection == "7.0-OVEST-HDD"):
 			addons = 'Picons-7.0-OVEST-HDD'
@@ -542,21 +541,21 @@ class picons(Screen):
 			addons = 'Picons-9.0-EST-USB'
 			self.title = 'Picons GioppyGio Downloader 9.0-EST-USB'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "16-EST-HDD"):
-			addons = 'Picons-16-EST-HDD'
-			self.title = 'Picons GioppyGio Downloader 16-EST-HDD'
+		elif (selection == "16.0-EST-HDD"):
+			addons = 'Picons-16.0-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 16.0-EST-HDD'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "16-EST-USB"):
-			addons = 'Picons-16-EST-USB'
-			self.title = 'Picons GioppyGio Downloader 16-EST-USB'
+		elif (selection == "16.0-EST-USB"):
+			addons = 'Picons-16.0-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 16.0-EST-USB'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "26-EST-HDD"):
-			addons = 'Picons-26-EST-HDD'
-			self.title = 'Picons GioppyGio Downloader 26-EST-HDD'
+		elif (selection == "26.0-EST-HDD"):
+			addons = 'Picons-26.0-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 26.0-EST-HDD'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "26-EST-USB"):
-			addons = 'Picons-26-EST-USB'
-			self.title = 'Picons GioppyGio Downloader 26-EST-USB'
+		elif (selection == "26.0-EST-USB"):
+			addons = 'Picons-26.0-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 26.0-EST-USB'
 			self.session.open(ipklist, addons, self.title)
 		elif (selection == "28.2-EST-HDD"):
 			addons = 'Picons-28.2-EST-HDD'
@@ -566,21 +565,21 @@ class picons(Screen):
 			addons = 'Picons-28.2-EST-USB'
 			self.title = 'Picons GioppyGio Downloader 28.2-EST-USB'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "13-EST-HDD"):
-			addons = 'Picons-13-EST-HDD'
-			self.title = 'Picons GioppyGio Downloader 13-EST-HDD'
+		elif (selection == "13.0-EST-HDD"):
+			addons = 'Picons-13.0-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 13.0-EST-HDD'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "13-EST-USB"):
-			addons = 'Picons-13-EST-USB'
-			self.title = 'Picons GioppyGio Downloader 13-EST-USB'
+		elif (selection == "13.0-EST-USB"):
+			addons = 'Picons-13.0-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 13.0-EST-USB'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "19-EST-HDD"):
-			addons = 'Picons-19-EST-HDD'
-			self.title = 'Picons GioppyGio Downloader 19-EST-HDD'
+		elif (selection == "19.2-EST-HDD"):
+			addons = 'Picons-19.2-EST-HDD'
+			self.title = 'Picons GioppyGio Downloader 19.2-EST-HDD'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "19-EST-USB"):
-			addons = 'Picons-19-EST-USB'
-			self.title = 'Picons GioppyGio Downloader 19-EST-USB'
+		elif (selection == "19.2-EST-USB"):
+			addons = 'Picons-19.2-EST-USB'
+			self.title = 'Picons GioppyGio Downloader 19.2-EST-USB'
 			self.session.open(ipklist, addons, self.title)
 		elif (selection == "31.5-EST-HDD"):
 			addons = 'Picons-31.5-EST-HDD'
@@ -598,21 +597,21 @@ class picons(Screen):
 			addons = 'Picons-42.0-EST-USB'
 			self.title = 'Picons GioppyGio Downloader 42.0-EST-USB'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "21.6-EST-HDD"):
-			addons = 'Picons-21.6-EST-HDD'
-			self.title = 'Picons GioppyGio Downloader 21.0-EST-HDD'
+		elif (selection == "DTT-HDD-USB"):
+			addons = 'Picons-DTT-HDD-USB'
+			self.title = 'Picons GioppyGio Downloader DTT-HDD-USB'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "21.6-EST-USB"):
-			addons = 'Picons-21.6-EST-USB'
-			self.title = 'Picons GioppyGio Downloader 21.0-EST-USB'
+		elif (selection == "DTT-USB"):
+			addons = 'Picons-DTT-USB'
+			self.title = 'Picons GioppyGio Downloader DTT-USB'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "30.0-Ovest-HDD"):
-			addons = 'Picons-30.0-Ovest-HDD'
-			self.title = 'Picons GioppyGio Downloader 30.0-Ovest-HDD'
+		elif (selection == "30.0-OVEST-HDD"):
+			addons = 'Picons-30.0-OVEST-HDD'
+			self.title = 'Picons GioppyGio Downloader 30.0-OVEST-HDD'
 			self.session.open(ipklist, addons, self.title)
-		elif (selection == "30.0-Ovest-USB"):
-			addons = 'Picons-30.0-Ovest-USB'
-			self.title = 'Picons GioppyGio Downloader 30.0-Ovest-USB'
+		elif (selection == "30.0-OVEST-USB"):
+			addons = 'Picons-30.0-OVEST-USB'
+			self.title = 'Picons GioppyGio Downloader 30.0-OVEST-USB'
 			self.session.open(ipklist, addons, self.title)
 		else:
 			self.messpopup("Selection error")
@@ -679,7 +678,7 @@ class ipklist(Screen):
 		self["info"].setText("Downloading list...")
 		testno = 1
 
-		xurl = 'http://images.opendroid.org/Addons/Picons/'+ self.addon + '/list'
+		xurl = 'https://gioppygio.it/addons/picons/'+ self.addon + '/list'
 		print "xurl =", xurl
 		getPage(xurl).addCallback(self.gotPage).addErrback(self.getfeedError)
 
@@ -781,7 +780,7 @@ class Getipk(Screen):
 		if not os.path.exists("/etc/ipkinst"): 
 			cmd = "mkdir -p /etc/ipkinst"
 			os.system(cmd)
-		xurl1 = 'http://images.opendroid.org/Addons/Picons/' + self.addon + '/'      
+		xurl1 = 'https://gioppygio.it/addons/picons/' + self.addon + '/'      
 		print "xurl1 =", xurl1
 		xurl2 = xurl1 + self.ipk
 		print "xurl2 =", xurl2

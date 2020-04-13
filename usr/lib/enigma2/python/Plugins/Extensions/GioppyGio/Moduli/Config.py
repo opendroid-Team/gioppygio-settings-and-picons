@@ -27,7 +27,7 @@ def ConverDate(Date):
 
 def Downloadxml():
 	try:
-		req = urllib2.Request('http://gioppygio.net/XML/settings.xml')
+		req = urllib2.Request('https://gioppygio.it/XML/settings.xml')
 		req.add_header('User-Agent', 'Plugin GioppyGio')
 		response = urllib2.urlopen(req, None, 3)
 		link = response.read()
