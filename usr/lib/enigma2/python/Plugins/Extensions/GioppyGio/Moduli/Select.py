@@ -1,3 +1,5 @@
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 from Components.Label import Label
 from Components.ConfigList import ConfigListScreen, ConfigList
 from Components.ActionMap import ActionMap
@@ -9,7 +11,7 @@ from Screens.MessageBox import MessageBox
 from Components.MultiContent import MultiContentEntryText, MultiContentEntryPixmapAlphaTest
 from enigma import *
 import sys, os
-from Config import *
+from .Config import *
 from skin import loadSkin
 from enigma import getDesktop
 
@@ -19,10 +21,6 @@ if getDesktop(0).size().width() == 1920:
 else:
 	loadSkin("/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Skin/skinhd.xml")
 	giopath = '/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Panel/default/'
-try:
-	addFont('%s/Raleway-Black.ttf' % plugin_path, 'Rale', 100, 1)
-except Exception as ex:
-	print ex
 
 
 class MenuListSelect(MenuList):
@@ -56,7 +54,6 @@ class ListSelect:
 					list.append((jx[0], jx[1].strip()))
 				except:
 					pass
-
 			return list
 		except:
 			pass
@@ -66,16 +63,14 @@ class ListSelect:
 		for dir, name, value in list:
 			if value == '1':
 				jw.write(dir + '---' + name + '\n')
-
 		jw.close()
 
 	def readBouquetsList(self, pwd, bouquetname):
 		try:
 			f = open(pwd + '/' + bouquetname)
 		except Exception as e:
-			print e
+			print(e)
 			return
-
 		ret = []
 		while True:
 			line = f.readline()
@@ -96,14 +91,12 @@ class ListSelect:
 					fb = open(pwd + '/' + filename)
 				except Exception as e:
 					continue
-
 				tmp = fb.readline().strip()
 				if tmp[:6] == '#NAME ':
 					ret.append([filename, tmp[6:]])
 				else:
 					ret.append([filename, filename])
 				fb.close()
-
 		return ret
 
 	def readBouquetsTvList(self, pwd):
@@ -119,26 +112,17 @@ class ListSelect:
 					if j == x[0] and jx.find(x[1]) != -1:
 						value = '1'
 						break
-
 			except:
 				pass
-
 			self.bouquetlist.append((x[0], x[1], value))
-
 		return self.bouquetlist
 
-
-class MenuSelect(Screen,ConfigListScreen):
+class MenuSelect(Screen, ConfigListScreen):
 
 	def __init__(self, session):
-		self.session = session
-#		skin = '/usr/lib/enigma2/python/Plugins/Extensions/GioppyGio/Skin/Main.xml'
-#		f = open(skin, 'r')
-#		self.skin = f.read()
-#		f.close()
 		Screen.__init__(self, session)
-#		self.list = []
-#		ConfigListScreen.__init__(self, self.list)
+		self.list = []
+		ConfigListScreen.__init__(self, self.list)
 		self.ListSelect = ListSelect()
 		self['autotimer'] = Label('')
 		self['namesat'] = Label('')
@@ -151,8 +135,8 @@ class MenuSelect(Screen,ConfigListScreen):
 		self['Yellow'].hide()
 		self['Blue'].hide()
 		self['Key_Lcn'] = Label('')
-		self['Key_Red'] = Label(_('Exit'))
-		self['Key_Green'] = Label(_('Installed list:'))
+		self['key_red'] = Label(_('Exit'))
+		self['Key_green'] = Label(_('Installed list:'))
 		self['Key_Personal'] = Label('')
 		self['A'] = MenuListSelect([])
 		self['B'] = MenuListSelect([])
@@ -160,14 +144,15 @@ class MenuSelect(Screen,ConfigListScreen):
 		self.Info()
 		self.Menu()
 		self.MenuA()
-		self['actions'] = ActionMap(['OkCancelActions', 'ShortcutActions', 'WizardActions', 'ColorActions', 'SetupActions', 'NumberActions', 'MenuActions', 'HelpActions', 'EPGSelectActions'], 
+		self['actions'] = ActionMap(['OkCancelActions', 'ShortcutActions', 'WizardActions', 'ColorActions', 'SetupActions', 'NumberActions', 'MenuActions', 'HelpActions', 'EPGSelectActions'],
 			{'ok': self.OkSelect,
 			 'up': self.keyUp,
 			 'down': self.keyDown,
 			 'cancel': self.Uscita,
 			 'nextBouquet': self['B'].pageUp,
 			 'prevBouquet': self['B'].pageDown,
-			 'red': self.Uscita}, -1)
+			 'red': self.Uscita}
+			 , -1)
 
 	def Info(self):
 		Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, DowDate, NameInfo = Load()
@@ -178,7 +163,7 @@ class MenuSelect(Screen,ConfigListScreen):
 		if str(DowDate) == '0':
 			newDowDate = _('Last Update: Never')
 		else:
-			newDowDate = _('Last Update: ') + DowDate
+			newDowDate = _('Last Update:') + DowDate
 		self['namesat'].setText(NameInfo + newdate)
 		self['dateDow'].setText(newDowDate)
 
@@ -200,7 +185,6 @@ class MenuSelect(Screen,ConfigListScreen):
 			name = name.split('   ')[0]
 		except:
 			pass
-
 		res.append(MultiContentEntryPixmapAlphaTest(pos=(10, 11), size=(20, 20), png=loadPic(icon, 20, 20, 0, 0, 0, 1)))
 		res.append(MultiContentEntryText(pos=(80, 7), size=(625, 45), font=0, text=name, flags=RT_HALIGN_LEFT))
 		res.append(MultiContentEntryText(pos=(0, 0), size=(0, 0), font=0, text=dir, flags=RT_HALIGN_LEFT))
@@ -213,7 +197,6 @@ class MenuSelect(Screen,ConfigListScreen):
 			name = name.split('   ')[0]
 		except:
 			pass
-
 		res.append(MultiContentEntryText(pos=(20, 7), size=(625, 45), font=0, text=name, flags=RT_HALIGN_LEFT))
 		return res
 
@@ -223,10 +206,9 @@ class MenuSelect(Screen,ConfigListScreen):
 		if lista:
 			for dir, name in lista:
 				self.jB.append(self.hauptListEntryA(name))
-
 		self['A'].setList(self.jB)
 		if not self.jB:
-			self['text'].setText('   Please\n    select,\n    what\n    you\n    want\n    to\n    keep!\n  ')
+			self['text'].setText(_('Please select\nwhat you want\nto keep!'))
 		else:
 			self['text'].setText(' ')
 		self['B'].selectionEnabled(1)
@@ -237,7 +219,6 @@ class MenuSelect(Screen,ConfigListScreen):
 		for dir, name, value in self.ListSelect.TvList():
 			if not name.lower().find('dtt') != -1 and name != 'Favourites (TV)':
 				self.jA.append(self.hauptListEntry(dir, name, value))
-
 		self['B'].setList(self.jA)
 
 	def OkSelect(self):
@@ -250,7 +231,6 @@ class MenuSelect(Screen,ConfigListScreen):
 					self.list.append((dir, name, '1'))
 			elif value == '1':
 				self.list.append((dir, name, '1'))
-
 		self.ListSelect.SaveList(self.list)
 		self.Menu()
 		self.MenuA()

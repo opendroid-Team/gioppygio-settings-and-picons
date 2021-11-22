@@ -1,97 +1,117 @@
 msgid ""
 msgstr ""
-"Project-Id-Version: Settings and picons\n"
-"POT-Creation-Date: 2018-03-14 20:42+0100\n"
-"PO-Revision-Date: 2019-04-07 22:06+0200\n"
-"Last-Translator: FULL NAME <FIRST AUTHOR <EMAIL@ADDRESS>, YEAR."
-">\n"
-"Language-Team: GioppyGio\n"
-"Language: it_IT\n"
+"Project-Id-Version: \n"
+"POT-Creation-Date: 2021-11-22 14:13+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: it\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=ISO-8859-1\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.2.1\n"
+"X-Generator: Poedit 3.0\n"
 "X-Poedit-Basepath: ../../..\n"
-"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: Moduli/Select.py:154 plugin.py:130 plugin.py:423 plugin.py:481
+#: Moduli/Select.py:138 plugin.py:135 plugin.py:514 plugin.py:815
 msgid "Exit"
 msgstr "Uscire"
 
-#: Moduli/Select.py:155 plugin.py:131
+#: Moduli/Select.py:139 plugin.py:136
 msgid "Installed list:"
 msgstr "Elenco installato:"
 
-#: Moduli/Select.py:186 plugin.py:248
+#: Moduli/Select.py:164 plugin.py:229
 msgid "Last Update: Never"
 msgstr "Ultimo aggiornamento: mai"
 
-#: Moduli/Select.py:188 plugin.py:250
-msgid "Last Update: "
-msgstr "Ultimo aggiornamento: "
+#: Moduli/Select.py:166 plugin.py:231
+msgid "Last Update:"
+msgstr "Ultimo aggiornamento:"
 
-#: Moduli/Setting.py:558/Setting.py:564
+#: Moduli/Select.py:211
 msgid ""
-"Sorry! New release downloaded, restart enigma in order to make "
-"updating the setting."
+"Please select\n"
+"what you want\n"
+"to keep!"
 msgstr ""
-"Scusate! Nuova versione scaricata, riavvio di enigma per "
-"aggiornare le impostazioni."
+"Si prega di selezionare\n"
+"ciò che vuoi\n"
+"tenere!"
 
-#: Moduli/Setting.py:599
+#: Moduli/Setting.py:485
 msgid " "
 msgstr ""
 
-#: Moduli/Setting.py:599
-msgid "from\n"
-msgstr "a partire dal\n"
+#: Moduli/Setting.py:485
+msgid ""
+"\n"
+"from:\n"
+msgstr ""
+"\n"
+"a partire dal:\n"
 
-#: Moduli/Setting.py:599
-msgid "installed !"
-msgstr "installato !"
+#: Moduli/Setting.py:485
+msgid ""
+"\n"
+"installed !"
+msgstr ""
+"\n"
+"installato !"
 
-#: Moduli/Setting.py:601
+#: Moduli/Setting.py:488
 msgid "Sorry, cannot download !"
-msgstr "Siamo spiacenti, non � possibile scaricare!"
+msgstr "Spiacenti, impossibile scaricare!"
 
-#: Moduli/Setting.py:603
+#: Moduli/Setting.py:491
 msgid "New:\n"
 msgstr "Nuovo:\n"
 
-#: Moduli/Setting.py:603
+#: Moduli/Setting.py:491
 msgid "Old:\n"
-msgstr "Vecchio\n"
+msgstr "Vecchio:\n"
 
-#: Moduli/Setting.py:607
+#: Moduli/Setting.py:495
 msgid ""
 "Sorry.\n"
 "no internet connection !"
 msgstr ""
-"Scusate.\n"
+"Scusa.\n"
 "Nessuna connessione internet !"
 
-#: plugin.py:133
+#: plugin.py:138
 msgid "Picons"
 msgstr "Picons"
 
-#: plugin.py:200
-msgid "Favourite: Yes"
-msgstr "Preferiti: Si"
+#: plugin.py:181
+msgid "Favorites: Yes"
+msgstr "Preferiti: Yes"
 
-#: plugin.py:204 plugin.py:211
-msgid "Favourite: No"
+#: plugin.py:185 plugin.py:192
+msgid "Favorites: No"
 msgstr "Preferiti: No"
 
-#: plugin.py:251
-msgid "Favourite:"
+#: plugin.py:202
+msgid "Auto Update: Yes"
+msgstr "Aggiornamento automatico: Sì"
+
+#: plugin.py:206
+msgid "Auto Update: No"
+msgstr "Aggiornamento automatico: No"
+
+#: plugin.py:232
+msgid "Favorites:"
 msgstr "Preferiti:"
 
-#: plugin.py:315
-msgid "Server down for maintenance"
-msgstr "Server inattivo per manutenzione"
+#: plugin.py:233
+msgid "Auto Update:"
+msgstr "Aggiornamento automatico:"
 
-#: plugin.py:348 plugin.py:350
+#: plugin.py:296
+msgid "Server down for maintenance"
+msgstr "Il server non e' attualmente disponibile"
+
+#: plugin.py:327
 #, python-format
 msgid ""
 "The new configurations are saved\n"
@@ -106,12 +126,12 @@ msgstr ""
 "La scelta e' diversa da quella precedente\n"
 "Vuoi procedere con l'aggiornamento manuale?"
 
-#: plugin.py:352
+#: plugin.py:329
 #, python-format
 msgid ""
 "The new configurations are saved\n"
 "Setting: %s\n"
-"Date: %s\n"
+"Date: %s \n"
 " The new setting has a more recent date\n"
 "Do you want to proceed with the manual upgrade?"
 msgstr ""
@@ -121,40 +141,233 @@ msgstr ""
 "I nuovi setting hanno una data piu' recente\n"
 "Vuoi procedere con l'aggiornamento manuale?"
 
+#: plugin.py:331
 msgid "Setting already updated, you want to upgrade anyway?"
-msgstr "I setting sono gia' aggiornati, vuoi aggiornarli comunque?"
+msgstr "Impostazione già aggiornata, vuoi comunque aggiornare?"
 
-#: plugin.py:409 plugin.py:457
+#: plugin.py:446 plugin.py:480
+msgid "Picons-4.8-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:447 plugin.py:481
+msgid "Picons-4.8-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:448 plugin.py:482
+msgid "Picons-7.0-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:449 plugin.py:483
+msgid "Picons-7.0-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:450 plugin.py:484
+msgid "Picons-9.0-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:451 plugin.py:485
+msgid "Picons-9.0-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:452 plugin.py:486
+msgid "Picons-13.0-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:453 plugin.py:487
+msgid "Picons-13.0-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:454 plugin.py:488
+msgid "Picons-16.0-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:455 plugin.py:489
+msgid "Picons-16.0-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:456 plugin.py:490
+msgid "Picons-19.2-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:457 plugin.py:491
+msgid "Picons-19.2-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:458 plugin.py:492
+msgid "Picons-23.5-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:459 plugin.py:493
+msgid "Picons-23.5-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:460 plugin.py:494
+msgid "Picons-26.0-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:461 plugin.py:495
+msgid "Picons-26.0-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:462 plugin.py:496
+msgid "Picons-28.2-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:463 plugin.py:497
+msgid "Picons-28.2-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:464 plugin.py:498
+msgid "Picons-31.5-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:465 plugin.py:499
+msgid "Picons-31.5-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:466 plugin.py:500
+msgid "Picons-39-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:467 plugin.py:501
+msgid "Picons-39-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:468 plugin.py:502
+msgid "Picons-42.0-EST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:469 plugin.py:503
+msgid "Picons-42.0-EST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:470 plugin.py:504
+msgid "Picons-0.8-OVEST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:471 plugin.py:505
+msgid "Picons-0.8-OVEST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:472 plugin.py:506
+msgid "Picons-5.0-OVEST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:473 plugin.py:507
+msgid "Picons-5.0-OVEST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:474 plugin.py:508
+msgid "Picons-7.0-OVEST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:475 plugin.py:509
+msgid "Picons-7.0-OVEST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:476 plugin.py:510
+msgid "Picons-30.0-OVEST-HDD-White&Black"
+msgstr ""
+
+#: plugin.py:477 plugin.py:511
+msgid "Picons-30.0-OVEST-USB-White&Black"
+msgstr ""
+
+#: plugin.py:478 plugin.py:512
+msgid "Picons-DTT-HDD-USB-White&Black"
+msgstr ""
+
+#: plugin.py:516
+msgid "Restart E2"
+msgstr ""
+
+#: plugin.py:517 plugin.py:716
+#| msgid ""
+#| "It is recommended !!\n"
+#| "to mount the appropriate device \n"
+#| "before downloading.\n"
+#| "Otherwise\n"
+#| "Press OK to continue"
 msgid ""
 "It is recommended !!\n"
-"to mount the appropriate device before downloading.\n"
+"mount the appropriate device \n"
+"before downloading.\n"
 "Otherwise\n"
 "Press OK to continue"
 msgstr ""
-"ATTENZIONE Raccomandiamo\n"
-"di montare un dispositivo appropriato prima di eseguire il "
-"download.\n"
-"In alternativa,\n"
-"Premere OK per continuare"
+"È raccomandato !! \n"
+"montare il dispositivo appropriato\n"
+"prima del download.\n"
+"Altrimenti\n"
+"Premi OK per continuare"
 
-#: plugin.py:456
-msgid "Dowanloding"
+#: plugin.py:725
+msgid "Cancel"
+msgstr "Annulla"
+
+#: plugin.py:726
+msgid "OK"
+msgstr "OK"
+
+#: plugin.py:761
+#, python-format
+msgid "Invalid response from server. Please report: %s"
+msgstr "Risposta non valida dal server. Si prega di segnalare: %s"
+
+#: plugin.py:816
+#| msgid "Install"
+msgid "Install IPK"
+msgstr "Installa IPK"
+
+#: plugin.py:852 plugin.py:866
+#, python-format
+msgid "Installing addon %s"
+msgstr "Installazione del componente aggiuntivo %s"
+
+#: plugin.py:927
+msgid "Downloading"
 msgstr "Download"
 
-#: plugin.py:473 plugin.py:508
-msgid ""
-"It is recommended !!\n"
-"to mount the appropriate device before downloading.\n"
-"Otherwise\n"
-"Press OK to install."
-msgstr ""
-"ATTENZIONE Raccomandiamo\n"
-"di montare un dispositivo appropriato prima di eseguire il "
-"download.\n"
-"In alternativa,\n"
-"premere OK per installare ugualmente."
-
-#: plugin.py:510 plugin.py:516
+#: plugin.py:981
 #, python-format
-msgid "downloading-installing: %s"
-msgstr "installando: %s"
+msgid "Video Download Failed!Corrupted Download File:%s"
+msgstr ""
+
+#: plugin.py:982
+#, python-format
+msgid "Video Download Failed!Could not read RTMP-Packet:%s"
+msgstr ""
+
+#: plugin.py:983
+#, python-format
+msgid "Video Download Failed!Segmentation fault:%s"
+msgstr ""
+
+#: plugin.py:984
+msgid "Download Failed!-Server error:"
+msgstr ""
+
+#: plugin.py:985
+#, python-format
+msgid "Download Failed!Unknown Error:%s"
+msgstr ""
+
+#~ msgid ""
+#~ "It is recommended !!\n"
+#~ "to mount the appropriate device before downloading.\n"
+#~ "Otherwise\n"
+#~ "Press OK to continue"
+#~ msgstr ""
+#~ "It is recommended !!\n"
+#~ "to mount the appropriate device before downloading.\n"
+#~ "Otherwise\n"
+#~ "Press OK to continue"
+
+#~ msgid "No"
+#~ msgstr "No"
+
+#~ msgid "Yes"
+#~ msgstr "Si"
+
+#~ msgid "Last Update: "
+#~ msgstr "Ultimo aggiornamento: "

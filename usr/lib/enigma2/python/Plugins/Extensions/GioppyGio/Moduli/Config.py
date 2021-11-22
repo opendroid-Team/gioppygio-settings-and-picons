@@ -1,9 +1,14 @@
-
+#!/usr/bin/env python
+# -*- coding: UTF-8 -*-
 from random import choice
-import re, os, urllib2, sys, imp, xml.etree.cElementTree
-from cStringIO import StringIO
+import re
+import os
+import xml.etree.cElementTree
+import sys
 from enigma import *
-from Setting import *
+from .Setting import *
+from urllib.request import urlopen, Request
+import six
 
 def OnclearMem():
 	os.system('sync')
@@ -27,26 +32,23 @@ def ConverDate(Date):
 
 def Downloadxml():
 	try:
-		req = urllib2.Request('https://gioppygio.it/XML/settings.xml')
+		req = Request('https://gioppygio.it/XML/settings.xml')
 		req.add_header('User-Agent', 'Plugin GioppyGio')
-		response = urllib2.urlopen(req, None, 3)
+		response = urlopen(req, None, 3)
 		link = response.read()
 		response.close()
 		return link
 	except:
 		return
-
 	return
-
 
 def DownloadSetting():
 	ListSettings = []
 	try:
-		mdom = xml.etree.cElementTree.parse(StringIO(Downloadxml()))
+		mdom = xml.etree.cElementTree.parse(six.BytesIO(Downloadxml()))
 		for x in mdom.getroot():
 			if x.tag == 'ruleset' and x.get('name') == 'Sat':
 				rootsat = x
-
 		for x in rootsat:
 			if x.tag == 'rule':
 				if x.get('type') == 'Marker':
@@ -55,7 +57,6 @@ def DownloadSetting():
 					LinkSat = str(x.get('Link'))
 					DateSat = str(x.get('Date'))
 					ListSettings.append((NumberSat, NameSat, LinkSat, DateSat, '0', '0', '0', '0'))
-
 	except:
 		pass
 
@@ -95,7 +96,6 @@ def Load():
 					NameInfo = elements[1][1:]
 			except:
 				pass
-
 	else:
 		xf = open(Directory + '/Settings/Date', 'w')
 		xf.write('AutoTimer = 0\n')
@@ -126,29 +126,25 @@ def WriteSave(Type, AutoTimer, Personal, NumberSat, NameSat, Date, NumberDtt, Do
 def Plugin():
 	Vers = Link = Date = ''
 	try:
-		req = urllib2.Request('')
+		req = Request('')
 		req.add_header('User-Agent', 'Plugin GioppyGio')
-		response = urllib2.urlopen(req, None, 3)
+		response = urlopen(req, None, 3)
 		link = response.read()
 		response.close()
 	except:
 		return
-
 	try:
-		mdom = xml.etree.cElementTree.parse(StringIO(link))
+		mdom = xml.etree.cElementTree.parse(six.StringIO(link))
 		for x in mdom.getroot():
 			if x.tag == 'ruleset' and x.get('name') == 'Plugin':
 				root = x
-
 		for x in root:
 			if x.tag == 'rule':
 				if x.get('type') == 'Marker':
 					Vers = str(x.get('Name'))
 					Link = str(x.get('Link'))
 					Date = str(x.get('Date'))
-
 		return (Vers, Link, Date)
 	except:
 		return
-
 	return

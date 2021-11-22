@@ -1,5 +1,0 @@
-<screen name="MessageSetting" position="0,40" size="1920,360" title="GioppyGioSettings" flags="wfNoBorder">
-  <eLabel position="0,40" size="1920,360" zPosition="0" />
-  <widget source="session.VideoPicture" render="Pig" position="0,80" size="1920,1080" zPosition="2" />
-  <widget name="text" position="580,140" size="1920,200" font="Regular;30" halign="center" foregroundColor="grey" transparent="1" zPosition="10" />
-</screen>

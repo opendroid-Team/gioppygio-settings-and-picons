@@ -1,1 +1,2 @@
-# gioppygio-settings-and-picons 7.0
+# gioppygio-settings-and-picons
+
