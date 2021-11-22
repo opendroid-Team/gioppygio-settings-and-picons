@@ -27,7 +27,7 @@ from enigma import eTimer, eDVBCI_UI, eListboxPythonStringContent, eListboxPytho
 import time
 from Tools.LoadPixmap import LoadPixmap
 import xml.dom.minidom
-from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, fileExists, pathExists, createDir, SCOPE_PLUGINS, SCOPE_SKINS, SCOPE_GUISKIN
+from Tools.Directories import resolveFilename, SCOPE_CURRENT_SKIN, fileExists, pathExists, createDir, SCOPE_PLUGINS
 from xml.dom import Node, minidom
 from twisted.web.client import getPage, downloadPage
 from Components.Button import Button
@@ -684,7 +684,7 @@ class picons(Screen):
                 for i in self.entrylist:
                         res = [i]
                         res.append(MultiContentEntryText(pos=(60, 5), size=(1100, 48), font=0, text=i[0]))
-                        picture=LoadPixmap(resolveFilename(SCOPE_GUISKIN, i[2]))
+                        picture=LoadPixmap(resolveFilename(SCOPE_PLUGINS, i[2]))
                         res.append(MultiContentEntryPixmapAlphaTest(pos=(5, 1), size=(48, 48), png=picture))
                         self.list.append(res)
                 self['list'].l.setList(self.list)
