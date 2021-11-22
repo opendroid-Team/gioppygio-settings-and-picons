@@ -1,6 +1,5 @@
 Package: enigma2-plugin-extensions-GioppyGio
-Version: 7.0
-Description: plugin gioppygio-settings-and-Picons
+Description: gioppygio-settings-and-Picons
 Section: base
 OE: Enigma2 plugin
 License: open
